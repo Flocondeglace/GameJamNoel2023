@@ -1,10 +1,9 @@
 extends Node2D
-
+#signal envoyé quand une mesure a fini de spawn
 signal fin_mesure
-var duree # temps de déclenchement du creaunaux 
+
 # liste des tuiles des notes en cours de descente
 var liste_note
-#var liste_timer_app # apparition à l'écran
 #label -> à bouger dans hub
 var label_point
 var label_ecart
@@ -21,7 +20,6 @@ func _ready():
 	# Initialiser les listes
 	liste_note = []
 	# Initialiser variables
-	duree = 1
 	tot_point = 0
 	# Label
 	label_ecart = $Ecart
@@ -115,24 +113,24 @@ func debut_lacher_note():
 	#mesure 11
 	pattern1blanche2noires()
 	await fin_mesure
-	#mesure 12
-	pattern3noires()
-	await fin_mesure
-	#mesure 13
-	pattern1blanche2noires()
-	await fin_mesure
-	#mesure 14
-	pattern1noire4croches()
-	await fin_mesure
-	#mesure 15
-	pattern2noirescroches()
-	await fin_mesure
-	#mesure 16
-	pattern3noires()
-	await fin_mesure
-	#mesure 17
-	blanche([0,1])
-	await $Timer.timeout
+#	#mesure 12
+#	pattern3noires()
+#	await fin_mesure
+#	#mesure 13
+#	pattern1blanche2noires()
+#	await fin_mesure
+#	#mesure 14
+#	pattern1noire4croches()
+#	await fin_mesure
+#	#mesure 15
+#	pattern2noirescroches()
+#	await fin_mesure
+#	#mesure 16
+#	pattern3noires()
+#	await fin_mesure
+#	#mesure 17
+#	blanche([0,1])
+#	await $Timer.timeout
 	
 
 func pattern1blanche2noires():
@@ -197,10 +195,11 @@ func noter_action(t):
 		label_ecart.text = "bad"
 	elif t < 0.1:
 		label_ecart.text = "perfect"
-		tot_point += 1
-		label_point.text = "points : " + str(tot_point)
+		tot_point += 2
 	else :
 		label_ecart.text = "cool"
+		tot_point += 1
+	label_point.text = "points : " + str(tot_point)
 
 
 # musique :
