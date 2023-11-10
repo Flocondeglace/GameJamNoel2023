@@ -8,16 +8,18 @@ var temps_fin = 0
 var speed
 var num_touche
 var x
+var immobile
 
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if (num_touche!=null):
+	if (num_touche!=null && !immobile):
 		set_position(position.move_toward(Vector2(x,1500),speed*delta))
 		if (position == Vector2(x,1500)):
 			queue_free()
 	
 func apparition(num:int=0):
+	immobile = false;
 	#Timer
 	timer_descente = Timer.new()
 	timer_descente.connect("timeout",_on_timer_timeout)
@@ -45,6 +47,14 @@ func get_temps_ecart():
 		temps_ecart = (tleft)  
 	push_warning("temps ecart : " + str(temps_ecart) + "tleft : " + str(tleft))
 	return temps_ecart
+
+func attrape():
+	var effect_time = Timer.new()
+	add_child(effect_time)
+	effect_time.start(0.01)
+	immobile = true
+	await effect_time.timeout
+	queue_free() 
 
 func _on_timer_timeout():
 	temps_fin = float(Time.get_ticks_msec())

@@ -60,7 +60,7 @@ func tester_touche(nom_touche):
 		if (liste_note!=[]):
 			for n in liste_note[0]:
 				if n.get_num_touche() == nums_touches.get(nom_touche):
-					n.queue_free() # si la touche est pas déjà sortie de l'écran
+					n.attrape() # si la touche est pas déjà sortie de l'écran
 					liste_note[0].erase(n)     
 					noter_action(n.get_temps_ecart())
 					break
@@ -79,45 +79,83 @@ func ajouter_note(liste_num):
 func debut_lacher_note():
 	$Musique.play()
 	for i in range(0,2):
-		noir([0])
+		noire([0])
 		await $Timer.timeout
 		#mesure 1
-		pattern1noir4croches()
+		pattern1noire4croches()
 		await fin_mesure
 		#mesure 2
-		pattern3noirs()
+		pattern3noires()
 		await fin_mesure
 		#mesure 3
-		pattern1noir4croches()
+		pattern1noire4croches()
 		await fin_mesure
 		#mesure 4
-		pattern3noirs()
+		pattern3noires()
 		await fin_mesure
 		#mesure 5
-		pattern1noir4croches()
+		pattern1noire4croches()
 		await fin_mesure
 		#mesure 6
-		pattern2noirscroches()
+		pattern2noirescroches()
 		await fin_mesure
 		#mesure 7 
-		pattern3noirs()
+		pattern3noires()
 		await fin_mesure
 		#mesure 8
 		blanche([0,1])
 		await $Timer.timeout
+	# Reprise
+	#mesure 9
+	noire([0])
+	await $Timer.timeout
+	#mesure 10
+	pattern3noires()
+	await fin_mesure
+	#mesure 11
+	pattern1blanche2noires()
+	await fin_mesure
+	#mesure 12
+	pattern3noires()
+	await fin_mesure
+	#mesure 13
+	pattern1blanche2noires()
+	await fin_mesure
+	#mesure 14
+	pattern1noire4croches()
+	await fin_mesure
+	#mesure 15
+	pattern2noirescroches()
+	await fin_mesure
+	#mesure 16
+	pattern3noires()
+	await fin_mesure
+	#mesure 17
+	blanche([0,1])
+	await $Timer.timeout
+	
 
-func pattern3noirs():
-	noir([0,1])
+func pattern1blanche2noires():
+	blanche([0,1])
 	await $Timer.timeout
-	noir([0])
+	noire([0])
 	await $Timer.timeout
-	noir([0])
+	noire([0])
+	await $Timer.timeout
+	fin_mesure.emit()
+
+func pattern3noires():
+	noire([0,1])
+	await $Timer.timeout
+	noire([0])
+	await $Timer.timeout
+	noire([0])
 	await $Timer.timeout
 	fin_mesure.emit()
 	
 
-func pattern1noir4croches():
-	noir([0,1])
+func pattern1noire4croches():
+	noire([0,1])
 	await $Timer.timeout
 	croche([1])
 	await $Timer.timeout
@@ -129,10 +167,10 @@ func pattern1noir4croches():
 	await $Timer.timeout
 	fin_mesure.emit()
 
-func pattern2noirscroches():
-	noir([0,1])
+func pattern2noirescroches():
+	noire([0,1])
 	await $Timer.timeout
-	noir([0])
+	noire([0])
 	await $Timer.timeout
 	croche([1])
 	await $Timer.timeout
@@ -147,7 +185,7 @@ func creer_note_temps(t,l):
 func croche(l):
 	creer_note_temps(0.25,l)
 	
-func noir(l):
+func noire(l):
 	creer_note_temps(1,l)
 	
 func blanche(l):
