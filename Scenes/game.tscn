@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bthskrpxkhbsj"]
+
+[ext_resource type="PackedScene" uid="uid://dmg7cbds21hfh" path="res://Scenes/game_manager.tscn" id="1_47n26"]
+[ext_resource type="PackedScene" uid="uid://hkfu5bb684l3" path="res://Scenes/line.tscn" id="2_smhgg"]
+
+[node name="Game" type="Node2D"]
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Line" parent="HUD" instance=ExtResource("2_smhgg")]
+color = Color(0.462745, 0.462745, 0.462745, 0.392157)
+
+[node name="GameManager" parent="." instance=ExtResource("1_47n26")]
