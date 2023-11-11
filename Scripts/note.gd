@@ -10,19 +10,23 @@ var num_touche
 var x
 var immobile
 var gameManager
+var ligney
 
 func _ready():
 	gameManager = get_parent()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	#var yecran = get_window().size.y
+	#push_warning(str(yecran) +" liney : " + str(ligney))
 	if (num_touche!=null && !immobile):
-		set_position(position.move_toward(Vector2(x,1500),speed*delta))
-		if (position == Vector2(x,1500)):
+		set_position(position.move_toward(Vector2(x,ligney+228),speed*delta))
+		if (position == Vector2(x,ligney + 228)):
 			gameManager.reset_combo()
 			queue_free()
 	
-func apparition(num:int=0):
+func apparition(num:int=0,liney:int=788):
+	ligney=liney
 	immobile = false;
 	#Timer
 	timer_descente = Timer.new()
@@ -36,7 +40,8 @@ func apparition(num:int=0):
 	x = 500 + num_touche * 300
 	pos_depart = Vector2(x,0)
 	set_position(pos_depart)
-	pos_objectif = Vector2(x,852)#-(128/2))
+	pos_objectif = Vector2(x,liney)#-(128/2))
+	#pos_objectif = Vector2(x,788)
 	speed = (pos_objectif - pos_depart).length()
 	timer_descente.set_autostart(true)
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://43ke8i3ukb4m"]
 
-[ext_resource type="Texture2D" uid="uid://cn8ldcfpxbh1" path="res://icon.svg" id="1_16ida"]
+[ext_resource type="Texture2D" uid="uid://6o4yvqodo0mc" path="res://Images/cadeau_decoup.png" id="1_b0biy"]
 [ext_resource type="Script" path="res://Scripts/note.gd" id="2_teufd"]
 
 [node name="Note" type="TextureRect"]
@@ -15,6 +15,7 @@ offset_right = 64.0
 offset_bottom = 64.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_16ida")
+texture = ExtResource("1_b0biy")
+expand_mode = 2
 stretch_mode = 4
 script = ExtResource("2_teufd")

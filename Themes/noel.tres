@@ -1,0 +1,10 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://c274dx0mi7t8d"]
+
+[ext_resource type="FontFile" uid="uid://dlfci552vb3lm" path="res://Fonts/pwhappychristmas/PWHappyChristmas.ttf" id="1_pqaq2"]
+
+[resource]
+default_font = ExtResource("1_pqaq2")
+default_font_size = 32
+RichTextLabel/font_sizes/bold_font_size = 64
+RichTextLabel/fonts/bold_font = ExtResource("1_pqaq2")
+RichTextLabel/fonts/normal_font = ExtResource("1_pqaq2")

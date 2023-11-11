@@ -1,19 +1,43 @@
-[gd_scene load_steps=3 format=3 uid="uid://8y1a4mxfo4n"]
+[gd_scene load_steps=5 format=3 uid="uid://8y1a4mxfo4n"]
 
 [ext_resource type="Script" path="res://Scripts/hud.gd" id="1_sh4ty"]
 [ext_resource type="PackedScene" uid="uid://hkfu5bb684l3" path="res://Scenes/line.tscn" id="2_nxdrm"]
+[ext_resource type="Theme" uid="uid://c274dx0mi7t8d" path="res://Themes/noel.tres" id="2_uamid"]
+[ext_resource type="LabelSettings" uid="uid://dkex8nougu82e" path="res://Themes/score.tres" id="3_8663k"]
 
 [node name="HUD" type="CanvasLayer"]
+layer = -2
 script = ExtResource("1_sh4ty")
 
-[node name="Point" type="Label" parent="."]
-offset_right = 40.0
-offset_bottom = 23.0
+[node name="Panel" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_uamid")
+color = Color(0.792157, 0.858824, 0.917647, 0.556863)
 
-[node name="Line" parent="." instance=ExtResource("2_nxdrm")]
-color = Color(0.462745, 0.462745, 0.462745, 0.392157)
+[node name="Container" type="VBoxContainer" parent="."]
+offset_left = 100.0
+offset_top = 100.0
+offset_right = 350.0
+offset_bottom = 700.0
+
+[node name="Point" type="Label" parent="Container"]
+visibility_layer = 3
+layout_mode = 2
+label_settings = ExtResource("3_8663k")
+
+[node name="Combo" type="RichTextLabel" parent="Container"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 8
+theme = ExtResource("2_uamid")
+bbcode_enabled = true
 
 [node name="Comment" type="Label" parent="."]
+visibility_layer = 3
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -22,3 +46,8 @@ offset_right = 0.5
 offset_bottom = 23.0
 grow_horizontal = 2
 horizontal_alignment = 1
+
+[node name="Line" parent="." instance=ExtResource("2_nxdrm")]
+visible = false
+visibility_layer = 3
+color = Color(0.462745, 0.462745, 0.462745, 0.392157)

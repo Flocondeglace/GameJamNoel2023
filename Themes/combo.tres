@@ -1,0 +1,7 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://cshkvakk5pc6b"]
+
+[ext_resource type="FontFile" uid="uid://dlfci552vb3lm" path="res://Fonts/pwhappychristmas/PWHappyChristmas.ttf" id="1_j65tb"]
+
+[resource]
+font = ExtResource("1_j65tb")
+font_size = 64

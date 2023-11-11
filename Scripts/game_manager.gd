@@ -19,8 +19,12 @@ var note_template = preload("res://Scenes/note.tscn")
 
 var nums_touches = {"capturera": 0, "capturerb": 1}
 
+# Dimension
+var lignedim
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
 	# Initialiser les listes
 	liste_note = []
 	# Initialiser variables
@@ -29,6 +33,9 @@ func _ready():
 	# Manager
 	audio_manager = get_parent().get_node("./AudioManager")
 	hud = get_parent().get_node("./HUD")
+	
+	# Récupérer dimension
+	#lignedim = get_node("CanvasLayer/AspectRatioContainer/Line").get_position()
 	
 	# Debut partie
 	start_musique()
@@ -74,10 +81,13 @@ func tester_touche(nom_touche):
 
 
 func ajouter_note(liste_num):
+	# Récupérer dimension
+	lignedim = get_node("CanvasLayer/Line").get_position()
+	
 	var l = []
 	for num in liste_num:
-		var note = note_template.instantiate()
-		note.apparition(num)
+		var note = note_template.instantiate()	
+		note.apparition(num,lignedim.y)
 		l.append(note)
 		add_child(note)
 	liste_note.append(l)
