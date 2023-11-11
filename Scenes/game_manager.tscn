@@ -10,21 +10,8 @@ script = ExtResource("1_2lmb7")
 wait_time = 5.0
 one_shot = true
 
-[node name="Ecart" type="Label" parent="."]
-layout_direction = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = 500.0
-offset_right = 600.0
-offset_bottom = 50.0
-grow_horizontal = 0
-
-[node name="Point" type="Label" parent="."]
-offset_right = 40.0
-offset_bottom = 23.0
-
 [node name="Timing" type="Label" parent="."]
+visible = false
 offset_left = 800.0
 offset_right = 801.0
 offset_bottom = 23.0

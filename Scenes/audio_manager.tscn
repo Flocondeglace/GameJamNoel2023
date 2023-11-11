@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bs2ob2rnbwuck"]
+
+[ext_resource type="Script" path="res://audio_manager.gd" id="1_86ms7"]
+[ext_resource type="AudioStream" uid="uid://btddci5e432ua" path="res://Musiques/we-wish-you-a-merry-christmas.mp3" id="2_rdymm"]
+
+[node name="AudioManager" type="Node2D"]
+script = ExtResource("1_86ms7")
+
+[node name="Musique1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_rdymm")
