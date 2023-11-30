@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://ccm35jlpafosk"]
+
+[node name="tabScoreContainer" type="GridContainer"]
+modulate = Color(1, 0.917647, 0.992157, 1)
+custom_minimum_size = Vector2(200, 200)
+offset_left = 1200.0
+offset_top = 100.0
+offset_right = 1700.0
+offset_bottom = 600.0
+columns = 2

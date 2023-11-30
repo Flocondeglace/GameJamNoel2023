@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://g60tnm886yy8"]
+
+[node name="question_nom" type="TextEdit"]
+custom_minimum_size = Vector2(200, 50)
+offset_right = 200.0
+offset_bottom = 50.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+placeholder_text = "what's your name ???"

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dauq4uh5xhtii"]
+
+[ext_resource type="Script" path="res://Scripts/Partition.gd" id="1_3lqah"]
+
+[node name="Partition" type="Node2D"]
+script = ExtResource("1_3lqah")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true

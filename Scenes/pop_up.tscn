@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=3 uid="uid://dhyl56m7une5k"]
+
+[ext_resource type="Theme" uid="uid://cslcsxn0fnxn1" path="res://Themes/popup.tres" id="1_c6lfc"]
+[ext_resource type="PackedScene" uid="uid://g60tnm886yy8" path="res://Scenes/question_nom.tscn" id="2_d13lh"]
+[ext_resource type="PackedScene" uid="uid://cltwxkit05e5i" path="res://Scenes/validate.tscn" id="3_pek6j"]
+
+[node name="PopUp" type="PanelContainer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -50.0
+offset_right = 100.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("1_c6lfc")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Margin/VBoxContainer"]
+layout_mode = 2
+text = "C'est quoi ton nom stp ?"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Margin/VBoxContainer"]
+layout_mode = 2
+
+[node name="question_nom" parent="Margin/VBoxContainer/HBoxContainer" instance=ExtResource("2_d13lh")]
+layout_mode = 2
+
+[node name="Validate" parent="Margin/VBoxContainer/HBoxContainer" instance=ExtResource("3_pek6j")]
+layout_mode = 2

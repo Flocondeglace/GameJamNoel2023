@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://Scripts/note.gd" id="2_teufd"]
 
 [node name="Note" type="TextureRect"]
+modulate = Color(0.968627, 0.623529, 0.972549, 1)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

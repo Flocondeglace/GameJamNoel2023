@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://dx6yvfi35wkk2"]
+
+[node name="Colonne" type="ColorRect"]
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 150.0
+grow_vertical = 2
+color = Color(0.427451, 0.733333, 0.580392, 0.392157)

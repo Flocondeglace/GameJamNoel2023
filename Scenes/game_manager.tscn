@@ -14,17 +14,12 @@ follow_viewport_enabled = true
 [node name="Line" parent="CanvasLayer" instance=ExtResource("3_esgrh")]
 
 [node name="Control" type="Control" parent="CanvasLayer"]
+visible = false
 layout_mode = 3
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -20.0
-offset_top = -40.0
-offset_right = 20.0
-grow_horizontal = 2
-grow_vertical = 0
+anchors_preset = 0
+offset_left = 25.0
+offset_right = 1945.0
+offset_bottom = 1080.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -50,5 +45,3 @@ offset_bottom = 23.0
 
 [node name="Musique" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_t6yac")
-
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

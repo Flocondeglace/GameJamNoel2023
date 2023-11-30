@@ -5,6 +5,7 @@
 [resource]
 default_font = ExtResource("1_pqaq2")
 default_font_size = 32
+Panel/styles/panel = null
 RichTextLabel/font_sizes/bold_font_size = 64
 RichTextLabel/fonts/bold_font = ExtResource("1_pqaq2")
 RichTextLabel/fonts/normal_font = ExtResource("1_pqaq2")
