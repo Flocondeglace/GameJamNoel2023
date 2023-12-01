@@ -95,7 +95,7 @@ func start_musique():
 	#Fin musique
 	
 	# Sauvegarder le score
-	
+	gm.pause_legal = false
 	var name:String = await hud.ask_for_name()
 	var tab_score = gm.save_score(name,gm.tot_point)
 	hud.print_liste_score(tab_score)
@@ -152,7 +152,6 @@ func pattern2noirescroches():
 func creer_note_temps(t,l,couleur:Color=Color.WHITE,point:int=1):#,timer_note:Timer=$Timer):
 	gm.ajouter_note(l,couleur,point)
 	timer_note.start(t)
-	print(t)
 
 func croche(l):
 	creer_note_temps(0.25,l,Color.DARK_ORCHID,100)

@@ -40,9 +40,12 @@ var t3
 # Partition en cours 
 var partition
 
+var pause_legal
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	pause_legal = false
 	#restart = false
 	var note_size = Vector2(128,128)
 	# Initialiser les listes
@@ -67,28 +70,13 @@ func _ready():
 		textetouche.text = noms_touches.find_key(i)
 		textetouche.set_position(Vector2(500 + i * 300 - colonne.size.x/2 + note_size.x/2,0))
 		$CanvasLayer.add_child(textetouche)
-	
-	# Debut partie
-	#start_musique()
-	
-	## creation mod
-#	creation_mod = false
-	
+
 	liste_note_creer = []
 	temps_prec = []
 	#timers_touche = []
 	for touche in nums_touches_creation.size():
 		liste_note_creer.append([])
 		temps_prec.append(Time.get_ticks_msec())
-		#var timer_creation = new Timer 
-		#add_child(timer_creation)
-		#timers_touche.append(Time.get_ticks_msec())
-#	if (creation_mod):
-#		audio_manager.activer_musique(0)
-	## test mod
-#	test_creation_mod = false
-#	if (test_creation_mod):
-#		start_musique_from_data("res://Test")
 	
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -96,24 +84,15 @@ func _process(_delta):
 	for touche in nums_touches.keys():
 		tester_touche(touche)
 	
-	#if (Input.is_action_just_pressed("pop")):
-	#	start_musique()
-	
 	if (Input.is_action_just_pressed("quitter")):
 		get_tree().quit()
 	
-	if (Input.is_action_just_pressed("pause")):
-		get_tree().paused = true
-		hud.activate_pause_menu()
-	
-	if (creation_mod):
-		creer()
+	if (pause_legal):
+		if (Input.is_action_just_pressed("pause")):
+			get_tree().paused = true
+			hud.activate_pause_menu()
 	
 
-func creer():
-	if (Input.is_action_just_pressed("fin_creation")):
-		creation_mod = false
-		fin()
 	
 	for touche in nums_touches_creation.keys():
 		if (Input.is_action_just_pressed(touche)):
@@ -232,70 +211,22 @@ func convert_string_to_tab(ch:String):
 	
 	return ch.split(",", true)
 
-#func start_musique_from_data(nom:String="res://Test"):
-#	init_data()
-#	audio_manager.activer_musique(0)
-#	var tab = []
-#
-#	for i in range(0,3):
-#		var file = FileAccess.open(nom+str(i), FileAccess.READ)
-#		var content = file.get_as_text()
-#		tab.append(convert_string_to_tab(content))
-#		file.close()
-#
-#
-#	t1 = Timer.new()
-#	add_child(t1)
-#	t1.start(tab[0][0])
-#	t2 = Timer.new()
-#	add_child(t2)
-#	t2.start(tab[1][0])
-#	t3 = Timer.new()
-#	add_child(t3)
-#	t3.start(tab[2][0])
-#
-#	tab[0].remove_at(0)
-#	tab[1].remove_at(0)
-#	tab[2].remove_at(0)
-#	start_milieu(tab[1])
-#	start_gauche(tab[0])
-#	start_droite(tab[2])
 
-#func start_gauche(t):
-#	for tmp in t :
-#		creer_note_temps(tmp/1000,[0],Color.WHITE,1,t1)
-#		await t1.timeout
-#
-#func start_droite(t):
-#	for tmp in t :
-#		creer_note_temps(tmp/1000,[2],Color.WHITE,1,t3)
-#		await t3.timeout
-#
-#func start_milieu(t):
-#	for tmp in t :
-#		creer_note_temps(tmp/1000,[1],Color.WHITE,1,t2)
-#		await t2.timeout
-
-#func restart_musique():
-#
-#	audio_manager.desactiver_musique(0)
+func debut_partition():
+	pause_legal = true
+	
 #	for l in liste_note :
 #		for note in l :
 #			remove_child(note)
-#	start_musique()
-
-func debut_partition():
-	for l in liste_note :
-		for note in l :
-			remove_child(note)
 	if partition != null:
 		remove_child(partition)
 		partition.queue_free()
-	#partition = Partition.new(self,audio_manager,hud)
 	partition = partition_template.instantiate()
 	partition.init(self,audio_manager,hud)
 	add_child(partition)
 	partition.start_musique()
+	
+	print("vraiment la ")
 
 	
 # return true si l'action est valide, false sinon
