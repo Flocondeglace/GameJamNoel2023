@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://dx6yvfi35wkk2"]
+[gd_scene load_steps=2 format=3 uid="uid://dx6yvfi35wkk2"]
+
+[ext_resource type="Texture2D" uid="uid://bs2y4y3cxuqcb" path="res://Images/neige.png" id="1_we0jb"]
 
 [node name="Colonne" type="ColorRect"]
 anchors_preset = 9
@@ -6,3 +8,20 @@ anchor_bottom = 1.0
 offset_right = 150.0
 grow_vertical = 2
 color = Color(0.427451, 0.733333, 0.580392, 0.392157)
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+amount = 16
+lifetime = 3.0
+texture = ExtResource("1_we0jb")
+scale_amount_min = 0.1
+scale_amount_max = 0.5
+color = Color(1, 0, 0.196078, 0.0470588)
+
+[node name="CPUParticles2D2" type="CPUParticles2D" parent="."]
+position = Vector2(150, 0)
+amount = 16
+lifetime = 3.0
+texture = ExtResource("1_we0jb")
+scale_amount_min = 0.1
+scale_amount_max = 0.5
+color = Color(1, 0, 0.196078, 0.0470588)

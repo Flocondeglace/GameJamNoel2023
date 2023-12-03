@@ -1,14 +1,30 @@
-[gd_scene load_steps=6 format=3 uid="uid://8y1a4mxfo4n"]
+[gd_scene load_steps=9 format=3 uid="uid://8y1a4mxfo4n"]
 
 [ext_resource type="Script" path="res://Scripts/hud.gd" id="1_sh4ty"]
 [ext_resource type="PackedScene" uid="uid://hkfu5bb684l3" path="res://Scenes/line.tscn" id="2_nxdrm"]
 [ext_resource type="Theme" uid="uid://c274dx0mi7t8d" path="res://Themes/noel.tres" id="2_uamid"]
 [ext_resource type="LabelSettings" uid="uid://dkex8nougu82e" path="res://Themes/score.tres" id="3_8663k"]
+[ext_resource type="PackedScene" uid="uid://cd8qwoqctow6t" path="res://Scenes/comment.tscn" id="4_2g2rh"]
 [ext_resource type="PackedScene" uid="uid://ccm35jlpafosk" path="res://Scenes/tab_score_container.tscn" id="5_g4xwl"]
+[ext_resource type="Texture2D" uid="uid://bs2y4y3cxuqcb" path="res://Images/neige.png" id="6_eqk2f"]
+[ext_resource type="Script" path="res://Scripts/CPUParticles2D.gd" id="7_f4wuw"]
 
 [node name="HUD" type="CanvasLayer"]
 layer = -2
 script = ExtResource("1_sh4ty")
+
+[node name="Comments" type="VBoxContainer" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -280.0
+offset_right = 250.0
+offset_bottom = -250.0
+grow_vertical = 0
+alignment = 1
+
+[node name="Comment" parent="Comments" instance=ExtResource("4_2g2rh")]
+layout_mode = 2
 
 [node name="Panel" type="ColorRect" parent="."]
 anchors_preset = 15
@@ -38,17 +54,6 @@ theme = ExtResource("2_uamid")
 bbcode_enabled = true
 fit_content = true
 
-[node name="Comment" type="Label" parent="."]
-visibility_layer = 3
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -0.5
-offset_right = 0.5
-offset_bottom = 23.0
-grow_horizontal = 2
-horizontal_alignment = 1
-
 [node name="Line" parent="." instance=ExtResource("2_nxdrm")]
 visible = false
 visibility_layer = 3
@@ -56,6 +61,7 @@ color = Color(0.462745, 0.462745, 0.462745, 0.392157)
 
 [node name="TabScoreLayer" type="CanvasLayer" parent="."]
 layer = 2
+visible = false
 
 [node name="CenterContainer" type="CenterContainer" parent="TabScoreLayer"]
 anchors_preset = 8
@@ -120,7 +126,28 @@ grow_vertical = 2
 [node name="Background" type="ColorRect" parent="MenuLayer/CenterContainer"]
 custom_minimum_size = Vector2(1920, 1080)
 layout_mode = 2
-color = Color(0.517647, 0.52549, 0.682353, 1)
+color = Color(0, 0.623529, 0.596078, 1)
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="MenuLayer/CenterContainer"]
+position = Vector2(981, -150)
+scale = Vector2(1.56, 1)
+amount = 256
+lifetime = 6.0
+explosiveness = 0.05
+randomness = 1.0
+texture = ExtResource("6_eqk2f")
+emission_shape = 3
+emission_rect_extents = Vector2(800, 1)
+direction = Vector2(200, 10)
+spread = 177.0
+gravity = Vector2(10, 90)
+angle_min = -29.5
+angle_max = 21.0
+scale_amount_min = 0.01
+scale_amount_max = 0.2
+hue_variation_min = 0.33
+hue_variation_max = 0.33
+script = ExtResource("7_f4wuw")
 
 [node name="MarginContainer" type="MarginContainer" parent="MenuLayer/CenterContainer"]
 layout_mode = 2
@@ -131,20 +158,29 @@ theme_override_constants/margin_bottom = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MenuLayer/CenterContainer/MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 10
 
 [node name="Titre" type="RichTextLabel" parent="MenuLayer/CenterContainer/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(200, 100)
+clip_contents = false
+custom_minimum_size = Vector2(1200, 400)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_font_sizes/normal_font_size = 128
 bbcode_enabled = true
 text = "[center]ChrismasRythm[/center]"
 
 [node name="ButtonPlay" type="Button" parent="MenuLayer/CenterContainer/MarginContainer/VBoxContainer" groups=["button", "buttonMenu"]]
+custom_minimum_size = Vector2(350, 125)
 layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 64
 text = "Play"
 
 [node name="ButtonQuit" type="Button" parent="MenuLayer/CenterContainer/MarginContainer/VBoxContainer" groups=["button", "buttonMenu"]]
+custom_minimum_size = Vector2(350, 125)
 layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 64
 text = "Quit"
 
 [node name="PauseLayer" type="CanvasLayer" parent="."]

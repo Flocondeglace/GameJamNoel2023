@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://cd8qwoqctow6t"]
+
+[ext_resource type="Theme" uid="uid://c274dx0mi7t8d" path="res://Themes/noel.tres" id="1_fuxgr"]
+
+[node name="Comment" type="Label"]
+visibility_layer = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -180.0
+offset_right = 1.0
+offset_bottom = -130.0
+grow_vertical = 0
+theme = ExtResource("1_fuxgr")
+horizontal_alignment = 1

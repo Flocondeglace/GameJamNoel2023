@@ -96,6 +96,7 @@ func start_musique():
 	
 	# Sauvegarder le score
 	gm.pause_legal = false
+	print("fin musique")
 	var name:String = await hud.ask_for_name()
 	var tab_score = gm.save_score(name,gm.tot_point)
 	hud.print_liste_score(tab_score)

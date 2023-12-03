@@ -17,6 +17,7 @@ var note_template = preload("res://Scenes/note.tscn")
 var colonne_template = preload("res://Scenes/colonne.tscn")
 var touche_template = preload("res://Scenes/touche_text.tscn")
 var partition_template = preload("res://Scenes/partition.tscn")
+var effet_replay_template = preload("res://Scenes/effet_replay.tscn")
 
 var nums_touches = {"capturera": 0, "capturerb": 1, "capturec": 2}
 var nums_touches_creation = {"creationa": 0,"creationb": 1,"creationc": 2}
@@ -224,9 +225,17 @@ func debut_partition():
 	partition = partition_template.instantiate()
 	partition.init(self,audio_manager,hud)
 	add_child(partition)
+	var effet_replay = effet_replay_template.instantiate()
+	add_child(effet_replay)
+	var t = Timer.new()
+	add_child(t)
+	t.start(2)
+	await t.timeout
+	remove_child(t)
+	t.queue_free()
+	effet_replay.queue_free()
 	partition.start_musique()
 	
-	print("vraiment la ")
 
 	
 # return true si l'action est valide, false sinon
