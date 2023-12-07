@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://8y1a4mxfo4n"]
+[gd_scene load_steps=13 format=3 uid="uid://8y1a4mxfo4n"]
 
 [ext_resource type="Script" path="res://Scripts/hud.gd" id="1_sh4ty"]
 [ext_resource type="PackedScene" uid="uid://hkfu5bb684l3" path="res://Scenes/line.tscn" id="2_nxdrm"]
@@ -7,11 +7,33 @@
 [ext_resource type="PackedScene" uid="uid://cd8qwoqctow6t" path="res://Scenes/comment.tscn" id="4_2g2rh"]
 [ext_resource type="PackedScene" uid="uid://ccm35jlpafosk" path="res://Scenes/tab_score_container.tscn" id="5_g4xwl"]
 [ext_resource type="Texture2D" uid="uid://bs2y4y3cxuqcb" path="res://Images/neige.png" id="6_eqk2f"]
-[ext_resource type="Script" path="res://Scripts/CPUParticles2D.gd" id="7_f4wuw"]
+[ext_resource type="Texture2D" uid="uid://cnl8s85u0u4md" path="res://Images/2d_lights_and_shadows_neutral_point_light.webp" id="9_ejybv"]
+[ext_resource type="PackedScene" uid="uid://dg01wdsjjyxwt" path="res://Scenes/pause_layer.tscn" id="10_ahmxb"]
+[ext_resource type="FontFile" uid="uid://dlfci552vb3lm" path="res://Fonts/pwhappychristmas/PWHappyChristmas.ttf" id="10_vcl6l"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_j1dqw"]
+font = ExtResource("10_vcl6l")
+font_size = 128
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="GDScript" id="GDScript_mmi5r"]
+script/source = "extends CPUParticles2D
+"
 
 [node name="HUD" type="CanvasLayer"]
 layer = -2
 script = ExtResource("1_sh4ty")
+
+[node name="FPS" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="FPS_COUNTER" type="Label" parent="FPS"]
+custom_minimum_size = Vector2(200, 200)
+offset_right = 1208.0
+offset_bottom = 635.0
+theme_override_font_sizes/font_size = 128
+text = "FPS"
+label_settings = SubResource("LabelSettings_j1dqw")
 
 [node name="Comments" type="VBoxContainer" parent="."]
 anchors_preset = 2
@@ -126,7 +148,7 @@ grow_vertical = 2
 [node name="Background" type="ColorRect" parent="MenuLayer/CenterContainer"]
 custom_minimum_size = Vector2(1920, 1080)
 layout_mode = 2
-color = Color(0, 0.623529, 0.596078, 1)
+color = Color(0.760784, 0.431373, 0.454902, 1)
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="MenuLayer/CenterContainer"]
 position = Vector2(981, -150)
@@ -147,7 +169,7 @@ scale_amount_min = 0.01
 scale_amount_max = 0.2
 hue_variation_min = 0.33
 hue_variation_max = 0.33
-script = ExtResource("7_f4wuw")
+script = SubResource("GDScript_mmi5r")
 
 [node name="MarginContainer" type="MarginContainer" parent="MenuLayer/CenterContainer"]
 layout_mode = 2
@@ -158,6 +180,7 @@ theme_override_constants/margin_bottom = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MenuLayer/CenterContainer/MarginContainer"]
 layout_mode = 2
+theme = ExtResource("2_uamid")
 theme_override_constants/separation = 10
 
 [node name="Titre" type="RichTextLabel" parent="MenuLayer/CenterContainer/MarginContainer/VBoxContainer"]
@@ -165,6 +188,7 @@ clip_contents = false
 custom_minimum_size = Vector2(1200, 400)
 layout_mode = 2
 size_flags_vertical = 3
+theme = ExtResource("2_uamid")
 theme_override_font_sizes/normal_font_size = 128
 bbcode_enabled = true
 text = "[center]ChrismasRythm[/center]"
@@ -183,34 +207,74 @@ size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 64
 text = "Quit"
 
-[node name="PauseLayer" type="CanvasLayer" parent="."]
-process_mode = 2
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="MenuLayer/CenterContainer/MarginContainer"]
+color = Color(0.955885, 0.950915, 0.486338, 1)
+energy = 0.01
+range_layer_min = -1
+range_layer_max = 2
+height = 0.04
 
-[node name="CenterContainer" type="CenterContainer" parent="PauseLayer"]
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="PointLight2D" type="PointLight2D" parent="MenuLayer/CenterContainer/MarginContainer"]
+position = Vector2(611, 85.1)
+scale = Vector2(2.57812, 0.770744)
+color = Color(1, 0.886275, 0.239216, 1)
+energy = 0.5
+range_layer_min = -1
+range_layer_max = 2
+texture = ExtResource("9_ejybv")
+texture_scale = 2.9
 
-[node name="MarginContainer" type="MarginContainer" parent="PauseLayer/CenterContainer"]
+[node name="PauseLayer" parent="." instance=ExtResource("10_ahmxb")]
+visible = false
+
+[node name="ChoosePartitionLayer" type="CanvasLayer" parent="."]
+layer = 3
+
+[node name="CenterContainer" type="CenterContainer" parent="ChoosePartitionLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -400.0
+offset_right = 400.0
+offset_bottom = 400.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_uamid")
+
+[node name="ColorRect" type="ColorRect" parent="ChoosePartitionLayer/CenterContainer"]
+custom_minimum_size = Vector2(800, 800)
 layout_mode = 2
+color = Color(0.686275, 0, 0.219608, 1)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PauseLayer/CenterContainer/MarginContainer"]
+[node name="ListeMusique" type="VBoxContainer" parent="ChoosePartitionLayer/CenterContainer"]
 layout_mode = 2
+theme_override_constants/separation = 15
 
-[node name="Titre" type="RichTextLabel" parent="PauseLayer/CenterContainer/MarginContainer/VBoxContainer"]
+[node name="Titre" type="RichTextLabel" parent="ChoosePartitionLayer/CenterContainer/ListeMusique"]
+custom_minimum_size = Vector2(400, 370)
 layout_mode = 2
+theme_override_font_sizes/normal_font_size = 100
 bbcode_enabled = true
-text = "[center]Game Paused[/center]"
+text = "[center]Choose your level[/center]"
 
-[node name="Continue" type="Button" parent="PauseLayer/CenterContainer/MarginContainer/VBoxContainer" groups=["buttonPause"]]
+[node name="MusBut1" type="Button" parent="ChoosePartitionLayer/CenterContainer/ListeMusique" groups=["level"]]
+custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
-text = "Continue"
+text = "Musique 1"
 
-[node name="Replay" type="Button" parent="PauseLayer/CenterContainer/MarginContainer/VBoxContainer" groups=["buttonPause"]]
+[node name="MusBut2" type="Button" parent="ChoosePartitionLayer/CenterContainer/ListeMusique" groups=["level"]]
+custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
-text = "Click Here To Replay"
+text = "Musique 2"
 
 [connection signal="pressed" from="TabScoreLayer/CenterContainer/VBoxContainer/Replay" to="." method="_on_replay_pressed"]
 [connection signal="pressed" from="MenuLayer/CenterContainer/MarginContainer/VBoxContainer/ButtonPlay" to="." method="_on_button_play_pressed"]
 [connection signal="pressed" from="MenuLayer/CenterContainer/MarginContainer/VBoxContainer/ButtonQuit" to="." method="_on_button_quit_pressed"]
-[connection signal="pressed" from="PauseLayer/CenterContainer/MarginContainer/VBoxContainer/Continue" to="." method="_on_continue_pressed"]
-[connection signal="pressed" from="PauseLayer/CenterContainer/MarginContainer/VBoxContainer/Replay" to="." method="_on_replay_pressed"]
+[connection signal="changelevel" from="PauseLayer" to="." method="_on_pause_layer_changelevel"]
+[connection signal="continu" from="PauseLayer" to="." method="_on_continue_pressed"]
+[connection signal="replay" from="PauseLayer" to="." method="_on_replay_pressed"]
+[connection signal="pressed" from="ChoosePartitionLayer/CenterContainer/ListeMusique/MusBut1" to="." method="_on_levelchoosed" binds= [0]]
+[connection signal="pressed" from="ChoosePartitionLayer/CenterContainer/ListeMusique/MusBut2" to="." method="_on_levelchoosed" binds= [1]]

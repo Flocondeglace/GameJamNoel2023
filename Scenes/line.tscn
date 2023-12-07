@@ -1,6 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://hkfu5bb684l3"]
-
-[ext_resource type="Script" path="res://Scenes/line.gd" id="1_0ibtr"]
+[gd_scene format=3 uid="uid://hkfu5bb684l3"]
 
 [node name="Line" type="ColorRect"]
 anchors_preset = 12
@@ -12,4 +10,3 @@ offset_bottom = -100.0
 grow_horizontal = 2
 grow_vertical = 0
 color = Color(0.713726, 0.321569, 0.321569, 0.556863)
-script = ExtResource("1_0ibtr")

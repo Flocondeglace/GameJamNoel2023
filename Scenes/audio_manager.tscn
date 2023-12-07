@@ -1,10 +1,23 @@
-[gd_scene load_steps=3 format=3 uid="uid://bs2ob2rnbwuck"]
+[gd_scene load_steps=6 format=3 uid="uid://bs2ob2rnbwuck"]
 
 [ext_resource type="Script" path="res://audio_manager.gd" id="1_86ms7"]
 [ext_resource type="AudioStream" uid="uid://btddci5e432ua" path="res://Musiques/we-wish-you-a-merry-christmas.mp3" id="2_rdymm"]
+[ext_resource type="AudioStream" uid="uid://dugdvux23k5fx" path="res://Musiques/silent-night-new-version-12358.mp3" id="3_2ccuj"]
+[ext_resource type="AudioStream" uid="uid://bqj2735f5wtjc" path="res://Musiques/carol-of-the-bells-hip-hop-version-christmas-music-for-video-vlog-171731.mp3" id="3_yu0nn"]
+[ext_resource type="AudioStream" uid="uid://cipjl1npsq4v2" path="res://Musiques/Christmas Bells Sound Effect.mp3" id="4_hnayb"]
 
 [node name="AudioManager" type="Node2D"]
 script = ExtResource("1_86ms7")
 
-[node name="Musique1" type="AudioStreamPlayer" parent="."]
+[node name="Musique0" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_rdymm")
+
+[node name="Musique1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_yu0nn")
+pitch_scale = 0.5
+
+[node name="Menu" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_2ccuj")
+
+[node name="TransitionSfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_hnayb")

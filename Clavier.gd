@@ -66,14 +66,11 @@ func touche_r_func():
 
 func touche_maj_func():
 	maj = !maj
-	print("mise a jour maj")
 	for button in (get_tree().get_nodes_in_group("clavierButton")):
 		if maj :
 			button.activate_maj()
-			print("majuscule")
 		else :
 			button.desactivate_maj()
-			print("minuscule")
 
 func clear():
 	text = ""

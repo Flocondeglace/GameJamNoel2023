@@ -16,12 +16,17 @@ config/features=PackedStringArray("4.1", "GL Compatibility")
 boot_splash/bg_color=Color(0.713726, 0.690196, 1, 0.756863)
 config/icon="res://icon.svg"
 
+[autoload]
+
+EffetReplay="*res://Scenes/effet_replay.tscn"
+
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/stretch/mode="viewport"
 window/handheld/orientation=1
+window/vsync/vsync_mode=0
 
 [input]
 

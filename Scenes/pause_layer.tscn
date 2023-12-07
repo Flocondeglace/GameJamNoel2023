@@ -1,0 +1,65 @@
+[gd_scene load_steps=3 format=3 uid="uid://dg01wdsjjyxwt"]
+
+[ext_resource type="Theme" uid="uid://c274dx0mi7t8d" path="res://Themes/noel.tres" id="1_heftq"]
+[ext_resource type="Script" path="res://Scenes/pause_layer.gd" id="1_mymee"]
+
+[node name="PauseLayer" type="CanvasLayer"]
+process_mode = 2
+layer = 3
+follow_viewport_enabled = true
+script = ExtResource("1_mymee")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -400.0
+offset_right = 400.0
+offset_bottom = 400.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="CenterContainer"]
+custom_minimum_size = Vector2(800, 800)
+layout_mode = 2
+color = Color(0.686275, 0, 0.219608, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Titre" type="RichTextLabel" parent="CenterContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(600, 200)
+layout_mode = 2
+theme = ExtResource("1_heftq")
+theme_override_font_sizes/normal_font_size = 100
+bbcode_enabled = true
+text = "[center]Game Paused[/center]"
+
+[node name="Continue" type="Button" parent="CenterContainer/MarginContainer/VBoxContainer" groups=["buttonPause"]]
+custom_minimum_size = Vector2(300, 45)
+layout_mode = 2
+theme = ExtResource("1_heftq")
+text = "Continue"
+
+[node name="ChangeLevel" type="Button" parent="CenterContainer/MarginContainer/VBoxContainer" groups=["buttonPause"]]
+custom_minimum_size = Vector2(300, 45)
+layout_mode = 2
+theme = ExtResource("1_heftq")
+text = "Change level"
+
+[node name="Replay" type="Button" parent="CenterContainer/MarginContainer/VBoxContainer" groups=["buttonPause"]]
+custom_minimum_size = Vector2(300, 45)
+layout_mode = 2
+theme = ExtResource("1_heftq")
+text = "Replay"
+
+[connection signal="pressed" from="CenterContainer/MarginContainer/VBoxContainer/Continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="CenterContainer/MarginContainer/VBoxContainer/ChangeLevel" to="." method="_on_change_level_pressed"]
+[connection signal="pressed" from="CenterContainer/MarginContainer/VBoxContainer/Replay" to="." method="_on_replay_pressed"]

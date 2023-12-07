@@ -23,25 +23,19 @@ var nums_touches = {"capturera": 0, "capturerb": 1, "capturec": 2}
 var nums_touches_creation = {"creationa": 0,"creationb": 1,"creationc": 2}
 var noms_touches = {"Q": 0, "G": 1, "M": 2}
 
+# Node
+#onready var visibility_notifier := $VisibleOnScreenNotifier2D
+
 # Dimension
 var lignedim
-
-# Pour créer des pistes !
-var creation_mod:bool
-var liste_note_creer
-var temps_prec
-#var timers_touche
-
-# Tester les créations !
-var test_creation_mod:bool
-var t1
-var t2
-var t3
 
 # Partition en cours 
 var partition
 
 var pause_legal
+
+
+signal last_note
 
 
 # Called when the node enters the scene tree for the first time.
@@ -58,6 +52,9 @@ func _ready():
 	audio_manager = get_parent().get_node("./AudioManager")
 	hud = get_parent().get_node("./HUD")
 	
+	# Lancement au menu
+	audio_manager.activer_musique_menu()
+	
 	# Récupérer dimension
 	#lignedim = get_node("CanvasLayer/AspectRatioContainer/Line").get_position()
 	
@@ -72,13 +69,6 @@ func _ready():
 		textetouche.set_position(Vector2(500 + i * 300 - colonne.size.x/2 + note_size.x/2,0))
 		$CanvasLayer.add_child(textetouche)
 
-	liste_note_creer = []
-	temps_prec = []
-	#timers_touche = []
-	for touche in nums_touches_creation.size():
-		liste_note_creer.append([])
-		temps_prec.append(Time.get_ticks_msec())
-	
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -93,22 +83,6 @@ func _process(_delta):
 			get_tree().paused = true
 			hud.activate_pause_menu()
 	
-
-	
-	for touche in nums_touches_creation.keys():
-		if (Input.is_action_just_pressed(touche)):
-			liste_note_creer[nums_touches_creation[touche]].append(Time.get_ticks_msec() - temps_prec[nums_touches_creation[touche]])
-			temps_prec[nums_touches_creation[touche]]=Time.get_ticks_msec()
-			#timers_touche[nums_touches_creation[touche]].start()
-
-func fin():
-	for i in range(0,3):
-		var file = FileAccess.open("res://Test"+str(i), FileAccess.WRITE)
-		var __text := """"""
-		__text+=str(liste_note_creer[i])
-		assert(file.is_open())
-		file.store_string(__text)
-		file.close()
 
 # Retourne un tableau comptenant les noms et scores
 func load_score():
@@ -203,6 +177,7 @@ func ajouter_note(liste_num,couleur:Color=Color.WHITE,point:int=1):
 func init_data():
 	combo = 0
 	tot_point = 0
+	get_tree().call_group("note","queue_free")
 	liste_note = []
 	hud.update_score(tot_point,combo)
 
@@ -213,8 +188,9 @@ func convert_string_to_tab(ch:String):
 	return ch.split(",", true)
 
 
-func debut_partition():
+func debut_partition(level:int=0):
 	pause_legal = true
+	init_data()
 	
 #	for l in liste_note :
 #		for note in l :
@@ -225,16 +201,13 @@ func debut_partition():
 	partition = partition_template.instantiate()
 	partition.init(self,audio_manager,hud)
 	add_child(partition)
-	var effet_replay = effet_replay_template.instantiate()
-	add_child(effet_replay)
-	var t = Timer.new()
-	add_child(t)
-	t.start(2)
-	await t.timeout
-	remove_child(t)
-	t.queue_free()
-	effet_replay.queue_free()
-	partition.start_musique()
+	EffetReplay.play()
+	#var effet_replay = effet_replay_template.instantiate()
+	#add_child(effet_replay)
+	await audio_manager.activer_transition()
+	
+	#effet_replay.queue_free()
+	partition.start_musique_from_part(level)
 	
 
 	
@@ -243,15 +216,15 @@ func noter_action(t,point:int=1):
 	var valide:bool = true
 	$Timing.text = str(t)
 	if t > 0.15 :
-		hud.add_comment("bad")
+		##hud.add_comment("bad")
 		valide = false
 		reset_combo()
 	elif t < 0.07:
-		hud.add_comment("perfect")
+		##hud.add_comment("perfect")
 		combo += 1
 		tot_point += point*combo 
 	else :
-		hud.add_comment("cool")
+		##hud.add_comment("cool")
 		reset_combo()
 		tot_point += point
 	hud.update_score(tot_point,combo)#.text = "points : " + str(tot_point) + "	x" +str(combo) 
@@ -262,6 +235,9 @@ func reset_combo():
 
 func continue_game():
 	get_tree().paused = false
+
+func set_liste_note(ln):
+	liste_note = ln
 
 # musique :
 # we wish you a merry  : Music by <a href="https://pixabay.com/fr/users/white_records-32584949/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=172818">Maksym Dudchyk</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=172818">Pixabay</a>

@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://w1urb7tekwpu"]
+
+[ext_resource type="Texture2D" uid="uid://cnl8s85u0u4md" path="res://Images/2d_lights_and_shadows_neutral_point_light.webp" id="1_lajan"]
+
+[node name="effet_light_note" type="PointLight2D"]
+range_layer_min = -1
+range_layer_max = 5
+texture = ExtResource("1_lajan")
+texture_scale = 5.0

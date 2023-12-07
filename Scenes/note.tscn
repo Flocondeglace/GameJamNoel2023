@@ -1,22 +1,115 @@
-[gd_scene load_steps=3 format=3 uid="uid://43ke8i3ukb4m"]
+[gd_scene load_steps=8 format=3 uid="uid://43ke8i3ukb4m"]
 
 [ext_resource type="Texture2D" uid="uid://6o4yvqodo0mc" path="res://Images/cadeau_decoup.png" id="1_b0biy"]
 [ext_resource type="Script" path="res://Scripts/note.gd" id="2_teufd"]
+[ext_resource type="PackedScene" uid="uid://w1urb7tekwpu" path="res://Scenes/effet_light_note.tscn" id="3_nd7ak"]
 
-[node name="Note" type="TextureRect"]
+[sub_resource type="Animation" id="Animation_3kis1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(128, 128)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("effet_light_note:enabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_qa0ty"]
+resource_name = "grow"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(128, 128), Vector2(140, 140)]
+}
+
+[sub_resource type="Animation" id="Animation_wygc4"]
+resource_name = "growandglow"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(128, 128), Vector2(140, 140)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("effet_light_note:enabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_n7nh1"]
+_data = {
+"RESET": SubResource("Animation_3kis1"),
+"grow": SubResource("Animation_qa0ty"),
+"growandglow": SubResource("Animation_wygc4")
+}
+
+[node name="Note" type="TextureRect" groups=["note"]]
 modulate = Color(0.968627, 0.623529, 0.972549, 1)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -64.0
-offset_top = -64.0
-offset_right = 64.0
-offset_bottom = 64.0
+offset_left = 4736.0
+offset_top = 2636.0
+offset_right = 4864.0
+offset_bottom = 2764.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_b0biy")
 expand_mode = 2
 stretch_mode = 4
 script = ExtResource("2_teufd")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_n7nh1")
+}
+
+[node name="effet_light_note" parent="." instance=ExtResource("3_nd7ak")]
+enabled = false
+texture_scale = 10.0
+
+[node name="Timer_descente" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Timer_descente" to="." method="_on_timer_timeout"]

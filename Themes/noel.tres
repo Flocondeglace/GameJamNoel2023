@@ -1,10 +1,16 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://c274dx0mi7t8d"]
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://c274dx0mi7t8d"]
 
 [ext_resource type="FontFile" uid="uid://dlfci552vb3lm" path="res://Fonts/pwhappychristmas/PWHappyChristmas.ttf" id="1_pqaq2"]
+[ext_resource type="StyleBox" uid="uid://cxv6dmhmyd5mc" path="res://Themes/menu_button.tres" id="1_s2wo6"]
+[ext_resource type="StyleBox" uid="uid://u51yqxtphrib" path="res://Themes/menu_button_pressed.tres" id="2_4hcod"]
 
 [resource]
 default_font = ExtResource("1_pqaq2")
 default_font_size = 32
+Button/styles/focus = ExtResource("2_4hcod")
+Button/styles/hover = ExtResource("2_4hcod")
+Button/styles/normal = ExtResource("1_s2wo6")
+Button/styles/pressed = ExtResource("2_4hcod")
 Panel/styles/panel = null
 RichTextLabel/font_sizes/bold_font_size = 64
 RichTextLabel/fonts/bold_font = ExtResource("1_pqaq2")

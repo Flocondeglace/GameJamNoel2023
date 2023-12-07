@@ -1,26 +1,54 @@
-[gd_scene load_steps=3 format=3 uid="uid://p5he7lsdxo61"]
+[gd_scene load_steps=5 format=3 uid="uid://p5he7lsdxo61"]
 
-[ext_resource type="Texture2D" uid="uid://bs2y4y3cxuqcb" path="res://Images/neige.png" id="1_3840o"]
-[ext_resource type="Script" path="res://Scripts/CPUParticles2D.gd" id="2_ru0mo"]
+[ext_resource type="Script" path="res://Scripts/effet_replay.gd" id="1_2rndg"]
+
+[sub_resource type="Animation" id="Animation_vj7uy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_hpoo0"]
+resource_name = "transition_to_rect"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lrke1"]
+_data = {
+"RESET": SubResource("Animation_vj7uy"),
+"transition_to_rect": SubResource("Animation_hpoo0")
+}
 
 [node name="Effet_replay" type="Node2D"]
+script = ExtResource("1_2rndg")
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
-position = Vector2(981, -150)
-scale = Vector2(1.56, 1)
-amount = 256
-explosiveness = 0.05
-randomness = 1.0
-texture = ExtResource("1_3840o")
-emission_shape = 3
-emission_rect_extents = Vector2(800, 1)
-direction = Vector2(200, 10)
-spread = 177.0
-gravity = Vector2(0, 3000)
-angle_min = -29.5
-angle_max = 21.0
-scale_amount_min = 0.01
-scale_amount_max = 0.2
-hue_variation_min = 0.33
-hue_variation_max = 0.33
-script = ExtResource("2_ru0mo")
+[node name="ColorRect" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(1920, 1080)
+offset_right = 100.0
+offset_bottom = 100.0
+color = Color(0, 0, 0, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_lrke1")
+}
