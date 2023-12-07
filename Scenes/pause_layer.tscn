@@ -60,6 +60,13 @@ layout_mode = 2
 theme = ExtResource("1_heftq")
 text = "Replay"
 
+[node name="Quit" type="Button" parent="CenterContainer/MarginContainer/VBoxContainer" groups=["buttonPause"]]
+custom_minimum_size = Vector2(300, 45)
+layout_mode = 2
+theme = ExtResource("1_heftq")
+text = "Quit"
+
 [connection signal="pressed" from="CenterContainer/MarginContainer/VBoxContainer/Continue" to="." method="_on_continue_pressed"]
 [connection signal="pressed" from="CenterContainer/MarginContainer/VBoxContainer/ChangeLevel" to="." method="_on_change_level_pressed"]
 [connection signal="pressed" from="CenterContainer/MarginContainer/VBoxContainer/Replay" to="." method="_on_replay_pressed"]
+[connection signal="pressed" from="CenterContainer/MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

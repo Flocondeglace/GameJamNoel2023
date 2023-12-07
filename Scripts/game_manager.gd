@@ -31,6 +31,7 @@ var lignedim
 
 # Partition en cours 
 var partition
+var timing_notes
 
 var pause_legal
 
@@ -80,6 +81,8 @@ func _process(_delta):
 	
 	if (pause_legal):
 		if (Input.is_action_just_pressed("pause")):
+			print("pause")
+			pause_legal = false
 			get_tree().paused = true
 			hud.activate_pause_menu()
 	
@@ -89,14 +92,14 @@ func load_score():
 	var tabScore = []
 	var file = FileAccess.open("res://TabScore.txt",FileAccess.READ)
 	var content = file.get_as_text()
-	content.strip_escapes()
+	content = content.strip_escapes()
 	content.split(",",true)
 	tabScore = convert_string_to_tab(content)
 	var loaded = []
 	print(tabScore,"taille : ",tabScore.size())
 	for i in range (0,tabScore.size()):
 		var text = tabScore[i]
-		text= text.split(" : ",true)
+		text= text.split(":",true)
 		loaded.append([text[0],float(text[1])])
 	loaded.sort()
 	for i in range (0,tabScore.size()):
@@ -189,12 +192,8 @@ func convert_string_to_tab(ch:String):
 
 
 func debut_partition(level:int=0):
-	pause_legal = true
 	init_data()
 	
-#	for l in liste_note :
-#		for note in l :
-#			remove_child(note)
 	if partition != null:
 		remove_child(partition)
 		partition.queue_free()
@@ -202,11 +201,7 @@ func debut_partition(level:int=0):
 	partition.init(self,audio_manager,hud)
 	add_child(partition)
 	EffetReplay.play()
-	#var effet_replay = effet_replay_template.instantiate()
-	#add_child(effet_replay)
 	await audio_manager.activer_transition()
-	
-	#effet_replay.queue_free()
 	partition.start_musique_from_part(level)
 	
 
@@ -216,15 +211,15 @@ func noter_action(t,point:int=1):
 	var valide:bool = true
 	$Timing.text = str(t)
 	if t > 0.15 :
-		##hud.add_comment("bad")
+		hud.add_comment("bad")
 		valide = false
 		reset_combo()
 	elif t < 0.07:
-		##hud.add_comment("perfect")
+		hud.add_comment("perfect")
 		combo += 1
 		tot_point += point*combo 
 	else :
-		##hud.add_comment("cool")
+		hud.add_comment("cool")
 		reset_combo()
 		tot_point += point
 	hud.update_score(tot_point,combo)#.text = "points : " + str(tot_point) + "	x" +str(combo) 
@@ -232,6 +227,7 @@ func noter_action(t,point:int=1):
 	
 func reset_combo():
 	combo = 0
+	hud.update_score(tot_point,combo)
 
 func continue_game():
 	get_tree().paused = false

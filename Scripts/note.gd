@@ -52,7 +52,7 @@ func apparition(num:int=0,liney:int=788,couleur:Color=Color.LIGHT_CORAL,pt:int=1
 	speed = (pos_objectif - pos_depart).length()
 	$Timer_descente.set_autostart(true)
 
-func creation(tmp:int,num:int=0,liney:int=788,couleur:Color=Color.LIGHT_CORAL,pt:int=1):
+func creation(tmp:int,num:int=0,liney:int=788,couleur:Color=Color.LIGHT_CORAL,pt:int=1,effet:bool=false):
 	point = pt
 	modulate = couleur
 	ligney=liney
@@ -66,13 +66,13 @@ func creation(tmp:int,num:int=0,liney:int=788,couleur:Color=Color.LIGHT_CORAL,pt
 	pos_objectif = Vector2(x,liney)#-(128/2))
 	#pos_objectif = Vector2(x,788)
 	tmp_avant_act = tmp
-	print(tmp_avant_act)
+	#print(tmp_avant_act)
 	speed = (pos_objectif - pos_depart).length()
 
 func activer():
-	print(tmp_avant_act)
+	#print(tmp_avant_act)
 	await get_tree().create_timer(tmp_avant_act).timeout
-	print("reel acti")
+	#print("reel acti")
 	immobile = false
 	$Timer_descente.start()
 

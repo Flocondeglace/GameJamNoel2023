@@ -117,6 +117,7 @@ func activate_pause_menu():
 	
 
 func _on_replay_pressed():
+	gm.init_data()
 	tabScoreLayer.hide()
 	pauseLayer.hide()
 	gm.continue_game()
@@ -128,15 +129,16 @@ func _on_replay_pressed():
 
 func choose_partition():
 	choosePartitionLayer.show()
-	push_warning("chooooooooooooose")
+	gm.init_data()
+	gm.continue_game()
+	
 	(get_tree().get_nodes_in_group("level"))[0].grab_focus()
 	await levelchoosed
-	push_warning("level choosed")
 	choosePartitionLayer.hide()
 	
 
 func _on_button_play_pressed():
-	
+	gm.pause_legal = false
 	await choose_partition()
 	menuLayer.hide()
 	gm.debut_partition(level)
@@ -154,6 +156,7 @@ func _on_continue_pressed():
 
 func _on_levelchoosed(l):
 	level = l
+	print("level choosed "+str(l))
 	emit_signal("levelchoosed")
 
 

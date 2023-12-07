@@ -16,3 +16,7 @@ func _on_continue_pressed():
 
 func _on_change_level_pressed():
 	changelevel.emit()
+
+
+func _on_quit_pressed():
+	get_tree().quit()
