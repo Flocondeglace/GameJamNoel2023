@@ -26,6 +26,7 @@ script = ExtResource("1_sh4ty")
 
 [node name="FPS" type="CanvasLayer" parent="."]
 layer = 10
+visible = false
 
 [node name="FPS_COUNTER" type="Label" parent="FPS"]
 custom_minimum_size = Vector2(200, 200)
@@ -150,7 +151,7 @@ custom_minimum_size = Vector2(1920, 1080)
 layout_mode = 2
 color = Color(0.760784, 0.431373, 0.454902, 1)
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="MenuLayer/CenterContainer"]
+[node name="Neige" type="CPUParticles2D" parent="MenuLayer/CenterContainer"]
 position = Vector2(981, -150)
 scale = Vector2(1.56, 1)
 amount = 256
@@ -163,6 +164,9 @@ emission_rect_extents = Vector2(800, 1)
 direction = Vector2(200, 10)
 spread = 177.0
 gravity = Vector2(10, 90)
+radial_accel_min = -50.0
+radial_accel_max = 50.0
+damping_max = 50.0
 angle_min = -29.5
 angle_max = 21.0
 scale_amount_min = 0.01
@@ -229,6 +233,7 @@ visible = false
 
 [node name="ChoosePartitionLayer" type="CanvasLayer" parent="."]
 layer = 3
+visible = false
 
 [node name="CenterContainer" type="CenterContainer" parent="ChoosePartitionLayer"]
 anchors_preset = 8

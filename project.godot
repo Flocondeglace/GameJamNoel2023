@@ -11,10 +11,14 @@ config_version=5
 [application]
 
 config/name="ChrismasRythm"
+config/description="Jeu de la GameJam \"Jeu sous le Sapin\" organisée par 7Fault
+"
 run/main_scene="res://Scenes/game.tscn"
 config/features=PackedStringArray("4.1", "GL Compatibility")
-boot_splash/bg_color=Color(0.713726, 0.690196, 1, 0.756863)
-config/icon="res://icon.svg"
+boot_splash/bg_color=Color(0.0352941, 0.0352941, 0.0352941, 0.956863)
+boot_splash/image="res://icon.png"
+boot_splash/fullsize=false
+config/icon="res://icon.png"
 
 [autoload]
 
