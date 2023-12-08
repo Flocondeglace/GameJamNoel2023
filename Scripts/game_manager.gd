@@ -70,11 +70,17 @@ func _ready():
 		textetouche.set_position(Vector2(500 + i * 300 - colonne.size.x/2 + note_size.x/2,0))
 		$CanvasLayer.add_child(textetouche)
 
+	lignedim = get_node("CanvasLayer/Line").get_position()
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
+	var touches = []
 	for touche in nums_touches.keys():
-		tester_touche(touche)
+		if (Input.is_action_just_pressed(touche)):
+			touches.append(touche)
+	if touches!=[]:
+		print("touches : " + str(touches))
+	tester_touche(touches)
 	
 	if (Input.is_action_just_pressed("quitter")):
 		get_tree().quit()
@@ -135,8 +141,8 @@ func save_score(nom:String, score:int):
 	return tabScore
 	#file.close()
 
-func tester_touche(nom_touche):
-	if (Input.is_action_just_pressed(nom_touche)):
+func tester_touche(nom_touches):
+	for nom_touche in nom_touches:
 		# On enlève les notes qui sont sorties de l'écran
 		var non_vide = false
 		while (liste_note!=[]) :
@@ -166,8 +172,6 @@ func tester_touche(nom_touche):
 
 
 func ajouter_note(liste_num,couleur:Color=Color.WHITE,point:int=1):
-	# Récupérer dimension
-	lignedim = get_node("CanvasLayer/Line").get_position()
 	
 	var l = []
 	for num in liste_num:

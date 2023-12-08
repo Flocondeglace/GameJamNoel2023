@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://xu2bgx80ky0q"]
+
+[ext_resource type="Texture2D" uid="uid://bs2y4y3cxuqcb" path="res://Images/neige.png" id="1_08k5x"]
+
+[sub_resource type="Gradient" id="Gradient_x6xk6"]
+offsets = PackedFloat32Array(0, 0.300971, 0.504854, 1)
+colors = PackedColorArray(0.32045, 1.65449e-07, 9.62615e-08, 1, 0.989668, 0, 0.0296936, 1, 0.337514, 0.337514, 0.0458468, 1, 1, 1, 0, 1)
+
+[node name="Fire" type="CPUParticles2D"]
+amount = 100
+speed_scale = 0.1
+randomness = 0.05
+lifetime_randomness = 0.1
+texture = ExtResource("1_08k5x")
+emission_shape = 1
+emission_sphere_radius = 79.37
+spread = 48.45
+gravity = Vector2(0, -980)
+angular_velocity_min = 72.81
+angular_velocity_max = 121.35
+angle_min = -50.0
+angle_max = 50.0
+color = Color(1, 1, 0.117647, 1)
+color_ramp = SubResource("Gradient_x6xk6")
