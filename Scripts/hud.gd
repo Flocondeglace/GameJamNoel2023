@@ -20,53 +20,82 @@ var gm # GameManager
 var gmLayer # Layer du GameManager
 var am # AudioManager
 
+var bar
+var textbonhomme
+var pointlabel
+var combolabel
+var fps
+var commentsContainer
 
 func _ready():
+	# IN Game
+	bar = $GameLayer/AssassinationBar
+	textbonhomme = $GameLayer/TextBonhomme
+	pointlabel = $GameLayer/Container/Point
+	combolabel = $GameLayer/Container/Combo
+	commentsContainer = $GameLayer/Comments
+	
+	# FPS
+	fps = $FPS/FPS_COUNTER
+	
+	# Manager
 	gm = get_parent().get_node("GameManager")
-	gmLayer = gm.get_node("CanvasLayer")
-	gmLayer.hide()
 	am = get_parent().get_node("AudioManager")
+	
+	# LAYER
+	gmLayer = gm.get_node("CanvasLayer")
 	tabScoreLayer = get_node("TabScoreLayer")
-	tabScoreContainer = get_node("TabScoreLayer/CenterContainer/VBoxContainer/tabScoreContainer")
-	tabScoreLayer.hide()
 	menuLayer = get_node("MenuLayer")
-	menuLayer.show()
 	pauseLayer = get_node("PauseLayer")
-	pauseLayer.hide()
 	choosePartitionLayer = get_node("ChoosePartitionLayer")
+	
+	# ScoreTab
+	tabScoreContainer = tabScoreLayer.get_node("CenterContainer/PanelContainer/VBoxContainer/tabScoreContainer")
+	
+	# Cacher les layers
+	gmLayer.hide()
+	tabScoreLayer.hide()
+	pauseLayer.hide()
 	choosePartitionLayer.hide()
+	
+	# Afficher le menu
+	menuLayer.show()
+	
+	# Select un boutton par default
 	(get_tree().get_nodes_in_group("buttonMenu"))[0].grab_focus()
-	#tabScoreContainer.hide()
-	#var titre = menuLayer.get_node("CenterContainer/MarginContainer/VBoxContainer/Titre")
-	#oscillo(titre)
 
-func _process(delta):
-	$FPS/FPS_COUNTER.text = str(Engine.get_frames_per_second()) 
+
+#func _process(delta):
+#	fps.text = str(Engine.get_frames_per_second()) 
+
 
 func update_score(score,combo):
-	$Container/Combo.text = "x" + "[b]" + str(combo) + "[/b]"
-	$Container/Point.text = "score : " + str(score)
+	combolabel.text = "x" + "[b]" + str(combo) + "[/b]"
+	pointlabel.text = "score : " + str(score)
+	bar.value = score
+	if bar.value == bar.max_value :
+		textbonhomme.text = "I'm dead..."
+	elif bar.value > bar.max_value/2 :
+		textbonhomme.text = "Your killing me ! STOP !"
+	
 
+# Afficher le commentaire un court instant
 func add_comment(texte):
 	var comment = comment_template.instantiate()
-	$Comments.add_child(comment)
-	
+	commentsContainer.add_child(comment)
 	comment.text = texte
-	# Effet
 	comment.visible_ratio = 1
 	await get_tree().create_timer(0.5).timeout
-	#await appear(comment)
-	#await disappear(comment)
 	comment.queue_free()
 	
 
 func print_liste_score(tabScore):
 	gmLayer.hide()
 	tabScoreLayer.show()
-	#var tabScoreContainer = get_node("CenterContainer/tabScoreContainer")
+	
 	for child in tabScoreContainer.get_children():
 		child.queue_free()
-	# faire un tableau pour les rangers
+		
 	for i in range(0,tabScore.size()):
 		var score_i_nom = score_item_template.instantiate()
 		score_i_nom.text = "[left]" + tabScore[i][0] + "[/left]"
@@ -74,7 +103,7 @@ func print_liste_score(tabScore):
 		score_i_ch.text =  "[right]" + str(tabScore[i][1]) + "[/right]"
 		tabScoreContainer.add_child(score_i_nom)
 		tabScoreContainer.add_child(score_i_ch)
-	#tabScoreContainer.show()
+
 
 
 func ask_for_name():
@@ -94,54 +123,33 @@ func ask_for_name():
 
 func activate_pause_menu():
 	pauseLayer.show()
-	(get_tree().get_nodes_in_group("buttonPause"))[0].grab_focus()
-	#gmLayer.hide()
-	
-#func disappear(objet):
-#	var t = Timer.new()
-#	add_child(t)
-#
-#	while (objet.visible_ratio > 0):
-#		t.start(0.005)
-#		objet.visible_ratio = max(0, objet.visible_ratio - 0.2)
-#		await t.timeout
-#	t.queue_free()
+	(get_tree().get_nodes_in_group("buttonPause"))[1].grab_focus()
 
-#func appear(objet):
-#	var t = Timer.new()
-#	add_child(t)
-#	objet.visible_ratio = 1
-#	t.start(0.4)
-#	await t.timeout
-#	t.queue_free()
-	
 
 func _on_replay_pressed():
-	gm.init_data()
+	gm.init_lancement_partie(level)
 	tabScoreLayer.hide()
 	pauseLayer.hide()
-	gm.continue_game()
-	#am.activer_transition()
-	gm.debut_partition(level)
-	
-	am.effacer(2)
 	gmLayer.show()
 
+
+
 func choose_partition():
+	am.activate_choose_level(true)
 	choosePartitionLayer.show()
 	gm.init_data()
 	gm.continue_game()
-	
 	(get_tree().get_nodes_in_group("level"))[0].grab_focus()
 	await levelchoosed
 	choosePartitionLayer.hide()
-	
+	am.activate_choose_level(false)
+
+
 
 func _on_button_play_pressed():
-	gm.pause_legal = false
 	await choose_partition()
+	gm.init_lancement_partie(level)
 	menuLayer.hide()
-	gm.debut_partition(level)
 	gmLayer.show()
 
 
@@ -151,6 +159,7 @@ func _on_button_quit_pressed():
 
 func _on_continue_pressed():
 	pauseLayer.hide()
+	gm.pause_legal = true
 	gm.continue_game()
 	gmLayer.show()
 
@@ -162,11 +171,12 @@ func _on_levelchoosed(l):
 
 func _on_pause_layer_changelevel():
 	pauseLayer.hide()
-	
-	#gm.continue_game()
 	push_warning("pause change level")
 	await choose_partition()
 	_on_replay_pressed()
-	#push_warning("a choisi")
-	#gm.debut_partition(level)
-	#_on_replay_pressed()
+
+
+func _on_back_to_menu_pressed():
+	tabScoreLayer.hide()
+	menuLayer.show()
+	(get_tree().get_nodes_in_group("buttonMenu"))[0].grab_focus()

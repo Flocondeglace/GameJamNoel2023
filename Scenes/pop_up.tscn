@@ -7,15 +7,11 @@
 [ext_resource type="PackedScene" uid="uid://df6x1424bs3il" path="res://Scenes/clavier.tscn" id="4_6r8yy"]
 
 [node name="PopUp" type="PanelContainer"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -244.0
-offset_top = -90.0
-offset_right = 244.0
-offset_bottom = 90.0
+anchors_preset = -1
+anchor_left = 0.2
+anchor_top = 0.4
+anchor_right = 0.8
+anchor_bottom = 0.8
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
@@ -24,17 +20,16 @@ theme = ExtResource("1_c6lfc")
 
 [node name="Margin" type="MarginContainer" parent="."]
 layout_mode = 2
-size_flags_horizontal = 4
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Margin"]
 layout_mode = 2
-size_flags_vertical = 0
 theme_override_constants/separation = 32
 script = ExtResource("2_sbicn")
 
 [node name="Label" type="Label" parent="Margin/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 32
 text = "C'est quoi ton nom stp ?"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Margin/VBoxContainer"]
@@ -42,16 +37,16 @@ layout_mode = 2
 size_flags_horizontal = 4
 
 [node name="question_nom" parent="Margin/VBoxContainer/HBoxContainer" instance=ExtResource("2_d13lh")]
+custom_minimum_size = Vector2(240, 60)
 layout_mode = 2
 
 [node name="Validate" parent="Margin/VBoxContainer/HBoxContainer" instance=ExtResource("3_pek6j")]
 layout_mode = 2
+theme_override_font_sizes/font_size = 28
 shortcut = null
 
-[node name="ContainerClavier" type="PanelContainer" parent="Margin/VBoxContainer"]
+[node name="Clavier" parent="Margin/VBoxContainer" instance=ExtResource("4_6r8yy")]
+unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 1
 size_flags_vertical = 3
-
-[node name="Clavier" parent="Margin/VBoxContainer/ContainerClavier" instance=ExtResource("4_6r8yy")]
-layout_mode = 2
-size_flags_vertical = 0

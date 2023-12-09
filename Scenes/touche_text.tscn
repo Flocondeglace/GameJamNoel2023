@@ -1,10 +1,16 @@
 [gd_scene load_steps=2 format=3 uid="uid://da3nvfsyi01sh"]
 
-[ext_resource type="LabelSettings" uid="uid://dkex8nougu82e" path="res://Themes/score.tres" id="1_1mf0m"]
+[ext_resource type="LabelSettings" uid="uid://dteveojhxa1m5" path="res://Themes/classiq_font.tres" id="1_wu6qb"]
 
-[node name="toucheText" type="Label"]
+[node name="toucheText" type="Panel"]
 offset_right = 150.0
 offset_bottom = 50.0
-label_settings = ExtResource("1_1mf0m")
+
+[node name="texte" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+text = "A"
+label_settings = ExtResource("1_wu6qb")
 horizontal_alignment = 1
 vertical_alignment = 1

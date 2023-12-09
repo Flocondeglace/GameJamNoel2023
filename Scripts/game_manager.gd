@@ -19,9 +19,8 @@ var touche_template = preload("res://Scenes/touche_text.tscn")
 var partition_template = preload("res://Scenes/partition.tscn")
 var effet_replay_template = preload("res://Scenes/effet_replay.tscn")
 
-var nums_touches = {"capturera": 0, "capturerb": 1, "capturec": 2}
-var nums_touches_creation = {"creationa": 0,"creationb": 1,"creationc": 2}
-var noms_touches = {"Q": 0, "G": 1, "M": 2}
+var nums_touches = {"capturera": 0, "capturerb": 1, "capturerc": 2}
+var noms_touches = {"R": 0, "T": 1, "Y": 2}
 
 # Node
 #onready var visibility_notifier := $VisibleOnScreenNotifier2D
@@ -34,6 +33,7 @@ var partition
 var timing_notes
 
 var pause_legal
+
 
 
 signal last_note
@@ -53,8 +53,7 @@ func _ready():
 	audio_manager = get_parent().get_node("./AudioManager")
 	hud = get_parent().get_node("./HUD")
 	
-	# Lancement au menu
-	audio_manager.activer_musique_menu()
+	
 	
 	# Récupérer dimension
 	#lignedim = get_node("CanvasLayer/AspectRatioContainer/Line").get_position()
@@ -65,32 +64,46 @@ func _ready():
 		var colonne = colonne_template.instantiate();
 		colonne.set_position(Vector2(500 + i * 300 - colonne.size.x/2 + note_size.x/2,0))
 		$CanvasLayer.add_child(colonne)
-		var textetouche = touche_template.instantiate();
-		textetouche.text = noms_touches.find_key(i)
-		textetouche.set_position(Vector2(500 + i * 300 - colonne.size.x/2 + note_size.x/2,0))
-		$CanvasLayer.add_child(textetouche)
+		var touchecolonne = touche_template.instantiate();
+		var text = touchecolonne.get_node("texte")
+		text.text = noms_touches.find_key(i)
+		touchecolonne.set_position(Vector2(500 + i * 300 - colonne.size.x/2 + note_size.x/2,0))
+		$CanvasLayer.add_child(touchecolonne)
 
 	lignedim = get_node("CanvasLayer/Line").get_position()
 	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+	# Lancement au menu
+	if !audio_manager.get_hasBeenInit():
+		audio_manager.initialiser()
+	audio_manager.activer_musique_menu()
+	
 func _process(_delta):
+	if (pause_legal):
+		if (Input.is_action_just_pressed("pause")):
+			partition.lachement = false
+			print("pause")
+			pause_legal = false
+			hud.activate_pause_menu()
+			get_tree().paused = true
+			
 	var touches = []
 	for touche in nums_touches.keys():
 		if (Input.is_action_just_pressed(touche)):
 			touches.append(touche)
 	if touches!=[]:
-		print("touches : " + str(touches))
-	tester_touche(touches)
+		#print("touches : " + str(touches))
+		tester_touche(touches)
 	
 	if (Input.is_action_just_pressed("quitter")):
 		get_tree().quit()
 	
-	if (pause_legal):
-		if (Input.is_action_just_pressed("pause")):
-			print("pause")
-			pause_legal = false
-			get_tree().paused = true
-			hud.activate_pause_menu()
+	
+	
+func init_lancement_partie(lev):
+	pause_legal = false
+	init_data()
+	continue_game()
+	debut_partition(lev)
 	
 
 # Retourne un tableau comptenant les noms et scores
@@ -213,7 +226,6 @@ func debut_partition(level:int=0):
 # return true si l'action est valide, false sinon
 func noter_action(t,point:int=1):
 	var valide:bool = true
-	$Timing.text = str(t)
 	if t > 0.15 :
 		hud.add_comment("bad")
 		valide = false

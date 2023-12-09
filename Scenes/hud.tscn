@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://8y1a4mxfo4n"]
+[gd_scene load_steps=19 format=3 uid="uid://8y1a4mxfo4n"]
 
 [ext_resource type="Script" path="res://Scripts/hud.gd" id="1_sh4ty"]
 [ext_resource type="PackedScene" uid="uid://hkfu5bb684l3" path="res://Scenes/line.tscn" id="2_nxdrm"]
@@ -7,9 +7,21 @@
 [ext_resource type="PackedScene" uid="uid://cd8qwoqctow6t" path="res://Scenes/comment.tscn" id="4_2g2rh"]
 [ext_resource type="PackedScene" uid="uid://ccm35jlpafosk" path="res://Scenes/tab_score_container.tscn" id="5_g4xwl"]
 [ext_resource type="Texture2D" uid="uid://bs2y4y3cxuqcb" path="res://Images/neige.png" id="6_eqk2f"]
+[ext_resource type="FontFile" uid="uid://cki1crrwap1ch" path="res://Fonts/FeFCrm2.ttf" id="8_8r0oc"]
+[ext_resource type="Theme" uid="uid://cslcsxn0fnxn1" path="res://Themes/popup.tres" id="8_vbrfg"]
 [ext_resource type="Texture2D" uid="uid://cnl8s85u0u4md" path="res://Images/2d_lights_and_shadows_neutral_point_light.webp" id="9_ejybv"]
 [ext_resource type="PackedScene" uid="uid://dg01wdsjjyxwt" path="res://Scenes/pause_layer.tscn" id="10_ahmxb"]
+[ext_resource type="FontFile" uid="uid://1k2xadwws6g3" path="res://Fonts/moon_get-Heavy.ttf" id="10_eygwv"]
 [ext_resource type="FontFile" uid="uid://dlfci552vb3lm" path="res://Fonts/pwhappychristmas/PWHappyChristmas.ttf" id="10_vcl6l"]
+[ext_resource type="Texture2D" uid="uid://d4hp176jjdgk2" path="res://Images/bonhomme_spritesheet.png" id="11_cl3i2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aycao"]
+atlas = ExtResource("11_cl3i2")
+region = Rect2(0, 0, 516, 516)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8guau"]
+atlas = ExtResource("11_cl3i2")
+region = Rect2(0, 516, 516, 516)
 
 [sub_resource type="LabelSettings" id="LabelSettings_j1dqw"]
 font = ExtResource("10_vcl6l")
@@ -24,6 +36,72 @@ script/source = "extends CPUParticles2D
 layer = -2
 script = ExtResource("1_sh4ty")
 
+[node name="GameLayer" type="CanvasLayer" parent="."]
+layer = -2
+
+[node name="Comments" type="VBoxContainer" parent="GameLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -280.0
+offset_right = 250.0
+offset_bottom = -250.0
+grow_vertical = 0
+alignment = 1
+
+[node name="Comment" parent="GameLayer/Comments" instance=ExtResource("4_2g2rh")]
+layout_mode = 2
+
+[node name="Panel" type="ColorRect" parent="GameLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_uamid")
+color = Color(0.792157, 0.858824, 0.917647, 0.556863)
+
+[node name="Container" type="VBoxContainer" parent="GameLayer"]
+offset_left = 100.0
+offset_top = 100.0
+offset_right = 350.0
+offset_bottom = 700.0
+
+[node name="Point" type="Label" parent="GameLayer/Container"]
+visibility_layer = 3
+layout_mode = 2
+label_settings = ExtResource("3_8663k")
+
+[node name="Combo" type="RichTextLabel" parent="GameLayer/Container"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+size_flags_horizontal = 8
+theme = ExtResource("2_uamid")
+bbcode_enabled = true
+fit_content = true
+
+[node name="Line" parent="GameLayer" instance=ExtResource("2_nxdrm")]
+visible = false
+visibility_layer = 3
+color = Color(0.462745, 0.462745, 0.462745, 0.392157)
+
+[node name="AssassinationBar" type="TextureProgressBar" parent="GameLayer"]
+offset_left = 1500.0
+offset_top = 400.0
+offset_right = 2016.0
+offset_bottom = 916.0
+max_value = 1000.0
+fill_mode = 3
+texture_under = SubResource("AtlasTexture_aycao")
+texture_progress = SubResource("AtlasTexture_8guau")
+
+[node name="TextBonhomme" type="Label" parent="GameLayer"]
+offset_left = 1479.0
+offset_top = 426.0
+offset_right = 1552.0
+offset_bottom = 452.0
+text = "I'm alive !"
+
 [node name="FPS" type="CanvasLayer" parent="."]
 layer = 10
 visible = false
@@ -36,55 +114,8 @@ theme_override_font_sizes/font_size = 128
 text = "FPS"
 label_settings = SubResource("LabelSettings_j1dqw")
 
-[node name="Comments" type="VBoxContainer" parent="."]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -280.0
-offset_right = 250.0
-offset_bottom = -250.0
-grow_vertical = 0
-alignment = 1
-
-[node name="Comment" parent="Comments" instance=ExtResource("4_2g2rh")]
-layout_mode = 2
-
-[node name="Panel" type="ColorRect" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("2_uamid")
-color = Color(0.792157, 0.858824, 0.917647, 0.556863)
-
-[node name="Container" type="VBoxContainer" parent="."]
-offset_left = 100.0
-offset_top = 100.0
-offset_right = 350.0
-offset_bottom = 700.0
-
-[node name="Point" type="Label" parent="Container"]
-visibility_layer = 3
-layout_mode = 2
-label_settings = ExtResource("3_8663k")
-
-[node name="Combo" type="RichTextLabel" parent="Container"]
-custom_minimum_size = Vector2(200, 100)
-layout_mode = 2
-size_flags_horizontal = 8
-theme = ExtResource("2_uamid")
-bbcode_enabled = true
-fit_content = true
-
-[node name="Line" parent="." instance=ExtResource("2_nxdrm")]
-visible = false
-visibility_layer = 3
-color = Color(0.462745, 0.462745, 0.462745, 0.392157)
-
 [node name="TabScoreLayer" type="CanvasLayer" parent="."]
 layer = 2
-visible = false
 
 [node name="CenterContainer" type="CenterContainer" parent="TabScoreLayer"]
 anchors_preset = 8
@@ -100,38 +131,61 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme = ExtResource("2_uamid")
 
-[node name="ColorRect" type="ColorRect" parent="TabScoreLayer/CenterContainer"]
+[node name="Background" type="ColorRect" parent="TabScoreLayer/CenterContainer"]
 custom_minimum_size = Vector2(1920, 1080)
 layout_mode = 2
-color = Color(0.933333, 0.666667, 0.654902, 1)
+color = Color(0.760784, 0.431373, 0.454902, 1)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabScoreLayer/CenterContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="TabScoreLayer/CenterContainer"]
 layout_mode = 2
+theme = ExtResource("8_vbrfg")
 
-[node name="Titre" type="RichTextLabel" parent="TabScoreLayer/CenterContainer/VBoxContainer"]
-custom_minimum_size = Vector2(200, 200)
+[node name="VBoxContainer" type="VBoxContainer" parent="TabScoreLayer/CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Titre" type="RichTextLabel" parent="TabScoreLayer/CenterContainer/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(500, 100)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_fonts/normal_font = ExtResource("8_8r0oc")
+theme_override_font_sizes/normal_font_size = 24
 bbcode_enabled = true
 text = "[center]Tableau des meilleurs scores ! 
 (si t'es pas dedans c'est que ton score était pas fifou)[/center]"
 fit_content = true
 
-[node name="tabScoreContainer" parent="TabScoreLayer/CenterContainer/VBoxContainer" instance=ExtResource("5_g4xwl")]
+[node name="tabScoreContainer" parent="TabScoreLayer/CenterContainer/PanelContainer/VBoxContainer" instance=ExtResource("5_g4xwl")]
 custom_minimum_size = Vector2(0, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="Replay" type="Button" parent="TabScoreLayer/CenterContainer/VBoxContainer" groups=["button"]]
+[node name="Replay" type="Button" parent="TabScoreLayer/CenterContainer/PanelContainer/VBoxContainer" groups=["button"]]
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
-text = "Click Here To Replay"
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.5
+theme_override_fonts/font = ExtResource("10_eygwv")
+theme_override_font_sizes/font_size = 16
+text = " Click Here To Play Again "
+
+[node name="BackToMenu" type="Button" parent="TabScoreLayer/CenterContainer/PanelContainer/VBoxContainer" groups=["button"]]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.5
+theme_override_fonts/font = ExtResource("10_eygwv")
+theme_override_font_sizes/font_size = 16
+text = " Go Back To Menu "
 
 [node name="First" type="CanvasLayer" parent="."]
 layer = 3
 
 [node name="MenuLayer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="CenterContainer" type="CenterContainer" parent="MenuLayer"]
 anchors_preset = 8
@@ -275,7 +329,8 @@ custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 text = "Musique 2"
 
-[connection signal="pressed" from="TabScoreLayer/CenterContainer/VBoxContainer/Replay" to="." method="_on_replay_pressed"]
+[connection signal="pressed" from="TabScoreLayer/CenterContainer/PanelContainer/VBoxContainer/Replay" to="." method="_on_replay_pressed"]
+[connection signal="pressed" from="TabScoreLayer/CenterContainer/PanelContainer/VBoxContainer/BackToMenu" to="." method="_on_back_to_menu_pressed"]
 [connection signal="pressed" from="MenuLayer/CenterContainer/MarginContainer/VBoxContainer/ButtonPlay" to="." method="_on_button_play_pressed"]
 [connection signal="pressed" from="MenuLayer/CenterContainer/MarginContainer/VBoxContainer/ButtonQuit" to="." method="_on_button_quit_pressed"]
 [connection signal="changelevel" from="PauseLayer" to="." method="_on_pause_layer_changelevel"]

@@ -1,0 +1,8 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://dteveojhxa1m5"]
+
+[ext_resource type="FontFile" uid="uid://1k2xadwws6g3" path="res://Fonts/moon_get-Heavy.ttf" id="1_wbtko"]
+
+[resource]
+font = ExtResource("1_wbtko")
+font_size = 20
+font_color = Color(0.839216, 0.839216, 0.839216, 1)

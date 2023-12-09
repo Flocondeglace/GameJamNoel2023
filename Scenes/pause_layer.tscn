@@ -1,13 +1,13 @@
 [gd_scene load_steps=3 format=3 uid="uid://dg01wdsjjyxwt"]
 
 [ext_resource type="Theme" uid="uid://c274dx0mi7t8d" path="res://Themes/noel.tres" id="1_heftq"]
-[ext_resource type="Script" path="res://Scenes/pause_layer.gd" id="1_mymee"]
+[ext_resource type="Script" path="res://Scripts/pause_layer.gd" id="1_m6g23"]
 
 [node name="PauseLayer" type="CanvasLayer"]
 process_mode = 2
 layer = 3
 follow_viewport_enabled = true
-script = ExtResource("1_mymee")
+script = ExtResource("1_m6g23")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 anchors_preset = 8
@@ -43,6 +43,7 @@ bbcode_enabled = true
 text = "[center]Game Paused[/center]"
 
 [node name="Continue" type="Button" parent="CenterContainer/MarginContainer/VBoxContainer" groups=["buttonPause"]]
+visible = false
 custom_minimum_size = Vector2(300, 45)
 layout_mode = 2
 theme = ExtResource("1_heftq")

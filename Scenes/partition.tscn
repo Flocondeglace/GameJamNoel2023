@@ -4,7 +4,3 @@
 
 [node name="Partition" type="Node2D"]
 script = ExtResource("1_3lqah")
-
-[node name="Timer" type="Timer" parent="."]
-wait_time = 5.0
-one_shot = true
