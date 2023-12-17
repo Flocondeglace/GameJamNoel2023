@@ -102,7 +102,6 @@ func save_score():
 	# Sauvegarder le score
 	await get_tree().create_timer(1).timeout
 	gm.pause_legal = false
-	print("fin musique")
 	var nomjoueur:String = await hud.ask_for_name()
 	var tab_score = gm.save_score(nomjoueur,gm.tot_point)
 	hud.print_liste_score(tab_score)

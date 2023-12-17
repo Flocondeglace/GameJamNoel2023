@@ -89,10 +89,14 @@ func _process(_delta):
 	var touches = []
 	for touche in nums_touches.keys():
 		if (Input.is_action_just_pressed(touche)):
-			touches.append(touche)
+			for toucheautre in nums_touches.keys():
+				if (Input.is_action_just_pressed(toucheautre)):
+					touches.append(toucheautre)
+			break
 	if touches!=[]:
 		#print("touches : " + str(touches))
 		tester_touche(touches)
+	
 	
 	if (Input.is_action_just_pressed("quitter")):
 		get_tree().quit()

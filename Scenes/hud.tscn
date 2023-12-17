@@ -6,7 +6,6 @@
 [ext_resource type="LabelSettings" uid="uid://dkex8nougu82e" path="res://Themes/score.tres" id="3_8663k"]
 [ext_resource type="PackedScene" uid="uid://cd8qwoqctow6t" path="res://Scenes/comment.tscn" id="4_2g2rh"]
 [ext_resource type="PackedScene" uid="uid://ccm35jlpafosk" path="res://Scenes/tab_score_container.tscn" id="5_g4xwl"]
-[ext_resource type="Texture2D" uid="uid://bs2y4y3cxuqcb" path="res://Images/neige.png" id="6_eqk2f"]
 [ext_resource type="FontFile" uid="uid://cki1crrwap1ch" path="res://Fonts/FeFCrm2.ttf" id="8_8r0oc"]
 [ext_resource type="Theme" uid="uid://cslcsxn0fnxn1" path="res://Themes/popup.tres" id="8_vbrfg"]
 [ext_resource type="Texture2D" uid="uid://cnl8s85u0u4md" path="res://Images/2d_lights_and_shadows_neutral_point_light.webp" id="9_ejybv"]
@@ -14,6 +13,8 @@
 [ext_resource type="FontFile" uid="uid://1k2xadwws6g3" path="res://Fonts/moon_get-Heavy.ttf" id="10_eygwv"]
 [ext_resource type="FontFile" uid="uid://dlfci552vb3lm" path="res://Fonts/pwhappychristmas/PWHappyChristmas.ttf" id="10_vcl6l"]
 [ext_resource type="Texture2D" uid="uid://d4hp176jjdgk2" path="res://Images/bonhomme_spritesheet.png" id="11_cl3i2"]
+[ext_resource type="PackedScene" uid="uid://37eqxhu8lbfx" path="res://Scenes/neige.tscn" id="12_dmpb0"]
+[ext_resource type="Texture2D" uid="uid://bqx33hrgpq3au" path="res://Images/sapin.png" id="14_d4lem"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aycao"]
 atlas = ExtResource("11_cl3i2")
@@ -27,10 +28,6 @@ region = Rect2(0, 516, 516, 516)
 font = ExtResource("10_vcl6l")
 font_size = 128
 font_color = Color(0, 0, 0, 1)
-
-[sub_resource type="GDScript" id="GDScript_mmi5r"]
-script/source = "extends CPUParticles2D
-"
 
 [node name="HUD" type="CanvasLayer"]
 layer = -2
@@ -96,10 +93,11 @@ texture_under = SubResource("AtlasTexture_aycao")
 texture_progress = SubResource("AtlasTexture_8guau")
 
 [node name="TextBonhomme" type="Label" parent="GameLayer"]
-offset_left = 1479.0
+offset_left = 1350.0
 offset_top = 426.0
-offset_right = 1552.0
+offset_right = 1423.0
 offset_bottom = 452.0
+theme_override_font_sizes/font_size = 32
 text = "I'm alive !"
 
 [node name="FPS" type="CanvasLayer" parent="."]
@@ -205,29 +203,7 @@ custom_minimum_size = Vector2(1920, 1080)
 layout_mode = 2
 color = Color(0.760784, 0.431373, 0.454902, 1)
 
-[node name="Neige" type="CPUParticles2D" parent="MenuLayer/CenterContainer"]
-position = Vector2(981, -150)
-scale = Vector2(1.56, 1)
-amount = 256
-lifetime = 6.0
-explosiveness = 0.05
-randomness = 1.0
-texture = ExtResource("6_eqk2f")
-emission_shape = 3
-emission_rect_extents = Vector2(800, 1)
-direction = Vector2(200, 10)
-spread = 177.0
-gravity = Vector2(10, 90)
-radial_accel_min = -50.0
-radial_accel_max = 50.0
-damping_max = 50.0
-angle_min = -29.5
-angle_max = 21.0
-scale_amount_min = 0.01
-scale_amount_max = 0.2
-hue_variation_min = 0.33
-hue_variation_max = 0.33
-script = SubResource("GDScript_mmi5r")
+[node name="Neige" parent="MenuLayer/CenterContainer" instance=ExtResource("12_dmpb0")]
 
 [node name="MarginContainer" type="MarginContainer" parent="MenuLayer/CenterContainer"]
 layout_mode = 2
@@ -281,6 +257,20 @@ range_layer_min = -1
 range_layer_max = 2
 texture = ExtResource("9_ejybv")
 texture_scale = 2.9
+
+[node name="Sapin" type="TextureRect" parent="MenuLayer"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1470.0
+offset_top = -580.0
+offset_right = -958.0
+offset_bottom = -68.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("14_d4lem")
 
 [node name="PauseLayer" parent="." instance=ExtResource("10_ahmxb")]
 visible = false

@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://37eqxhu8lbfx"]
+
+[ext_resource type="Texture2D" uid="uid://bs2y4y3cxuqcb" path="res://Images/neige.png" id="1_osnfu"]
+
+[sub_resource type="GDScript" id="GDScript_mmi5r"]
+script/source = "extends CPUParticles2D
+"
+
+[node name="Neige" type="CPUParticles2D"]
+position = Vector2(981, -150)
+scale = Vector2(1.56, 1)
+amount = 256
+lifetime = 6.0
+explosiveness = 0.05
+randomness = 1.0
+texture = ExtResource("1_osnfu")
+emission_shape = 3
+emission_rect_extents = Vector2(800, 1)
+direction = Vector2(200, 10)
+spread = 177.0
+gravity = Vector2(10, 90)
+radial_accel_min = -50.0
+radial_accel_max = 50.0
+damping_max = 50.0
+angle_min = -29.5
+angle_max = 21.0
+scale_amount_min = 0.01
+scale_amount_max = 0.2
+hue_variation_min = 0.33
+hue_variation_max = 0.33
+script = SubResource("GDScript_mmi5r")

@@ -76,7 +76,7 @@ func update_score(score,combo):
 	if bar.value == bar.max_value :
 		textbonhomme.text = "I'm dead..."
 	elif bar.value > bar.max_value/2 :
-		textbonhomme.text = "You're killing me ! STOP !"
+		textbonhomme.text = "You're killing me ! \nSTOP !"
 	else :
 		textbonhomme.text = "I'm alive !"
 	
