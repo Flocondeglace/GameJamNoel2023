@@ -1,0 +1,54 @@
+[gd_scene load_steps=8 format=3 uid="uid://cvkbcugt7w0qw"]
+
+[ext_resource type="Texture2D" uid="uid://c1hv10brjnfha" path="res://Images/sapin_anim.png" id="1_eaj8c"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j5see"]
+atlas = ExtResource("1_eaj8c")
+region = Rect2(0, 0, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3xbs5"]
+atlas = ExtResource("1_eaj8c")
+region = Rect2(512, 0, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gx8x0"]
+atlas = ExtResource("1_eaj8c")
+region = Rect2(0, 512, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jvsfi"]
+atlas = ExtResource("1_eaj8c")
+region = Rect2(512, 512, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bkbjf"]
+atlas = ExtResource("1_eaj8c")
+region = Rect2(0, 1024, 512, 512)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tw1c0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j5see")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3xbs5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gx8x0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jvsfi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bkbjf")
+}],
+"loop": true,
+"name": &"chrismas_tree",
+"speed": 5.0
+}]
+
+[node name="ChristmasTree" type="AnimatedSprite2D"]
+position = Vector2(500, 276)
+sprite_frames = SubResource("SpriteFrames_tw1c0")
+animation = &"chrismas_tree"
+autoplay = "chrismas_tree"
+frame_progress = 0.422966
+speed_scale = 0.1

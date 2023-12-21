@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://8y1a4mxfo4n"]
+[gd_scene load_steps=20 format=3 uid="uid://8y1a4mxfo4n"]
 
 [ext_resource type="Script" path="res://Scripts/hud.gd" id="1_sh4ty"]
 [ext_resource type="PackedScene" uid="uid://hkfu5bb684l3" path="res://Scenes/line.tscn" id="2_nxdrm"]
@@ -14,7 +14,7 @@
 [ext_resource type="FontFile" uid="uid://dlfci552vb3lm" path="res://Fonts/pwhappychristmas/PWHappyChristmas.ttf" id="10_vcl6l"]
 [ext_resource type="Texture2D" uid="uid://d4hp176jjdgk2" path="res://Images/bonhomme_spritesheet.png" id="11_cl3i2"]
 [ext_resource type="PackedScene" uid="uid://37eqxhu8lbfx" path="res://Scenes/neige.tscn" id="12_dmpb0"]
-[ext_resource type="Texture2D" uid="uid://bqx33hrgpq3au" path="res://Images/sapin.png" id="14_d4lem"]
+[ext_resource type="PackedScene" uid="uid://lv0cryhnwluc" path="res://Scenes/christmas_tree.tscn" id="14_uu1wo"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aycao"]
 atlas = ExtResource("11_cl3i2")
@@ -28,6 +28,13 @@ region = Rect2(0, 516, 516, 516)
 font = ExtResource("10_vcl6l")
 font_size = 128
 font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_y5po0"]
+frames = 5
+frame_1/duration = 1.0
+frame_2/duration = 1.0
+frame_3/duration = 1.0
+frame_4/duration = 1.0
 
 [node name="HUD" type="CanvasLayer"]
 layer = -2
@@ -259,6 +266,7 @@ texture = ExtResource("9_ejybv")
 texture_scale = 2.9
 
 [node name="Sapin" type="TextureRect" parent="MenuLayer"]
+visible = false
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -270,7 +278,10 @@ offset_right = -958.0
 offset_bottom = -68.0
 grow_horizontal = 0
 grow_vertical = 0
-texture = ExtResource("14_d4lem")
+texture = SubResource("AnimatedTexture_y5po0")
+
+[node name="ChristmasTree" parent="MenuLayer" instance=ExtResource("14_uu1wo")]
+position = Vector2(650, 675)
 
 [node name="PauseLayer" parent="." instance=ExtResource("10_ahmxb")]
 visible = false
